@@ -3,6 +3,9 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "framework": null,
+  "redirects": [
+    { "source": "/wcag", "destination": "/", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",

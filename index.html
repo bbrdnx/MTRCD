@@ -3,882 +3,244 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Modern Toolkit for Reaching Compliant Design. We help teams design for the full spectrum of human diversity — cognitive, visual, auditory, and motor.">
-<title>MTRCD — Modern Toolkit for Reaching Compliant Design</title>
+<meta name="description" content="All 56 WCAG 2.2 criteria in plain English. Pass/fail examples and code snippets for every criterion. Free tool by MTRCD — Modern Toolkit for Reaching Compliant Design.">
+<title>WCAG Quick Reference — MTRCD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Epilogue:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --cream: #f5f0e8;
-  --cream2: #ede6d6;
-  --ink: #1a1612;
-  --ink2: #3d3530;
-  --rust: #b84a24;
-  --rust-light: #f0d4c8;
-  --sage: #4a6741;
-  --sage-light: #d4e0d2;
-  --muted: #6d6259;
-  --border: #d4cdc4;
-  --white: #fdfaf6;
-}
-
-html { font-size: 16px; scroll-behavior: smooth; }
-
-body {
-  background: var(--cream);
-  color: var(--ink);
-  font-family: 'Epilogue', sans-serif;
-  font-weight: 300;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-
-/* Grain texture overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.4;
-}
-
-/* NAV */
-nav {
-  padding: 1.5rem 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  background: rgba(245,240,232,0.95);
-  backdrop-filter: blur(8px);
-  z-index: 100;
-}
-
-.nav-logo {
-  font-family: 'Lora', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--ink);
-  text-decoration: none;
-  letter-spacing: -0.01em;
-}
-
-.nav-logo span {
-  color: var(--rust);
-  font-style: italic;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  list-style: none;
-}
-
-.nav-links a {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: var(--muted);
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover { color: var(--ink); }
-
-.nav-cta {
-  background: var(--ink) !important;
-  color: var(--cream) !important;
-  padding: 0.5rem 1.25rem;
-  font-size: 0.75rem !important;
-  letter-spacing: 0.06em !important;
-  transition: background 0.2s !important;
-}
-.nav-cta:hover { background: var(--rust) !important; color: var(--white) !important; }
-
-/* HERO */
-.hero {
-  min-height: 92vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  padding: 0 3rem;
-  gap: 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.hero-left { padding: 5rem 0; }
-
-.hero-eyebrow {
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--rust);
-  font-weight: 500;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.hero-eyebrow::before {
-  content: '';
-  display: block;
-  width: 32px;
-  height: 1px;
-  background: var(--rust);
-}
-
-.hero-headline {
-  font-family: 'Lora', serif;
-  font-size: clamp(3rem, 5vw, 5.5rem);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  margin-bottom: 2rem;
-  color: var(--ink);
-}
-
-.hero-headline em {
-  font-style: italic;
-  color: var(--rust);
-}
-
-.hero-body {
-  font-size: 1rem;
-  color: var(--ink2);
-  max-width: 440px;
-  margin-bottom: 3rem;
-  line-height: 1.75;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  background: var(--ink);
-  color: var(--cream);
-  padding: 0.9rem 2rem;
-  font-family: 'Epilogue', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: inline-block;
-}
-.btn-primary:hover { background: var(--rust); }
-
-.btn-secondary {
-  color: var(--muted);
-  font-size: 0.8rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 0.15rem;
-  transition: color 0.2s, border-color 0.2s;
-}
-.btn-secondary:hover { color: var(--ink); border-color: var(--ink); }
-
-/* HERO RIGHT — visual */
-.hero-right {
-  position: relative;
-  height: 520px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-visual {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.spectrum-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: slowSpin 30s linear infinite;
-}
-
-.spectrum-ring:nth-child(1) { width: 380px; height: 380px; border-style: dashed; animation-direction: reverse; }
-.spectrum-ring:nth-child(2) { width: 280px; height: 280px; }
-.spectrum-ring:nth-child(3) { width: 180px; height: 180px; border-color: var(--rust); border-width: 2px; animation-duration: 20s; }
-
-@keyframes slowSpin {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-.spectrum-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 2;
-}
-
-.spectrum-center-text {
-  font-family: 'Lora', serif;
-  font-size: 0.8rem;
-  font-style: italic;
-  color: var(--muted);
-  display: block;
-  margin-bottom: 0.25rem;
-}
-
-.spectrum-center-big {
-  font-family: 'Lora', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--ink);
-  line-height: 1;
-}
-
-.spectrum-node {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--rust);
-  margin: -4px 0 0 -4px;
-}
-
-.spectrum-label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink2);
-  white-space: nowrap;
-}
-
-/* Node positions on the outer ring */
-.node-visual { transform: translate(calc(-50% + 190px), calc(-50% - 8px)); }
-.node-visual .spectrum-node { background: var(--rust); }
-.label-visual { transform: translate(calc(-50% + 202px), calc(-50% + 12px)); }
-
-.node-motor { transform: translate(calc(-50% - 195px), calc(-50% - 8px)); }
-.node-motor .spectrum-node { background: var(--sage); }
-.label-motor { transform: translate(calc(-50% - 248px), calc(-50% + 12px)); }
-
-.node-auditory { transform: translate(calc(-50% - 8px), calc(-50% - 195px)); }
-.node-auditory .spectrum-node { background: #7a6abf; }
-.label-auditory { transform: translate(calc(-50% - 32px), calc(-50% - 215px)); }
-
-.node-cognitive { transform: translate(calc(-50% - 8px), calc(-50% + 183px)); }
-.node-cognitive .spectrum-node { background: #c4922a; }
-.label-cognitive { transform: translate(calc(-50% - 36px), calc(-50% + 200px)); }
-
-/* MARQUEE STRIP */
-.marquee-strip {
-  background: var(--ink);
-  color: var(--cream);
-  padding: 0.85rem 0;
-  overflow: hidden;
-  white-space: nowrap;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--border);
-}
-
-.marquee-inner {
-  display: inline-flex;
-  gap: 0;
-  animation: marquee 30s linear infinite;
-}
-
-.marquee-item {
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0 2.5rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 2.5rem;
-}
-
-.marquee-item::after {
-  content: "·";
-  color: var(--rust);
-  font-size: 1rem;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* BELIEF SECTION */
-.belief {
-  padding: 8rem 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 6rem;
-  align-items: start;
-}
-
-.belief-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--rust);
-  font-weight: 500;
-  padding-top: 0.5rem;
-}
-
-.belief-content blockquote {
-  font-family: 'Lora', serif;
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  margin-bottom: 2.5rem;
-  border-left: 3px solid var(--rust);
-  padding-left: 2rem;
-}
-
-.belief-content p {
-  font-size: 0.95rem;
-  color: var(--ink2);
-  max-width: 540px;
-  line-height: 1.8;
-  margin-bottom: 1.25rem;
-}
-
-/* PILLARS */
-.pillars {
-  background: var(--white);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.pillars-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 6rem 3rem;
-}
-
-.pillars-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 4rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.pillars-title {
-  font-family: 'Lora', serif;
-  font-size: 2.5rem;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-}
-
-.pillars-subtitle {
-  font-size: 0.8rem;
-  color: var(--muted);
-  max-width: 300px;
-  text-align: right;
-}
-
-.pillars-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  border: 1px solid var(--border);
-}
-
-.pillar {
-  padding: 2.5rem 2rem;
-  border-right: 1px solid var(--border);
-  position: relative;
-  transition: background 0.2s;
-}
-.pillar:last-child { border-right: none; }
-.pillar:hover { background: var(--cream); }
-
-.pillar-num {
-  font-family: 'Lora', serif;
-  font-size: 3rem;
-  font-weight: 400;
-  color: var(--border);
-  line-height: 1;
-  margin-bottom: 1.5rem;
-}
-
-.pillar-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-}
-
-.pillar-icon-visual { background: var(--rust-light); }
-.pillar-icon-motor { background: var(--sage-light); }
-.pillar-icon-auditory { background: #e8e4f4; }
-.pillar-icon-cognitive { background: #f4ead4; }
-
-.pillar-name {
-  font-family: 'Lora', serif;
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: var(--ink);
-}
-
-.pillar-desc {
-  font-size: 0.8rem;
-  color: var(--muted);
-  line-height: 1.65;
-}
-
-/* TOOL CALLOUT */
-.tool-callout {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 6rem 3rem;
-  display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: 5rem;
-  align-items: center;
-}
-
-.tool-tag {
-  display: inline-block;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--rust);
-  border: 1px solid var(--rust);
-  padding: 0.3rem 0.75rem;
-  margin-bottom: 1.5rem;
-  font-weight: 500;
-}
-
-.tool-title {
-  font-family: 'Lora', serif;
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.25rem;
-  line-height: 1.2;
-}
-
-.tool-title em { font-style: italic; color: var(--rust); }
-
-.tool-desc {
-  font-size: 0.9rem;
-  color: var(--ink2);
-  margin-bottom: 2rem;
-  line-height: 1.75;
-  max-width: 460px;
-}
-
-.tool-features {
-  list-style: none;
-  margin-bottom: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.tool-features li {
-  font-size: 0.8rem;
-  color: var(--ink2);
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.tool-features li::before {
-  content: '';
-  width: 16px;
-  height: 1px;
-  background: var(--rust);
-  flex-shrink: 0;
-}
-
-.tool-preview {
-  background: var(--ink);
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.tool-preview::before {
-  content: '';
-  position: absolute;
-  top: -60px;
-  right: -60px;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-.preview-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(245,240,232,0.6);
-  margin-bottom: 1.5rem;
-}
-
-.preview-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  gap: 1rem;
-}
-
-.preview-id {
-  font-size: 0.65rem;
-  color: rgba(245,240,232,0.65);
-  font-family: 'Epilogue', sans-serif;
-  white-space: nowrap;
-}
-
-.preview-name {
-  font-family: 'Lora', serif;
-  font-size: 0.8rem;
-  color: var(--cream);
-  flex: 1;
-}
-
-.preview-badge {
-  font-size: 0.55rem;
-  padding: 0.15rem 0.4rem;
-  letter-spacing: 0.06em;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.badge-a { background: rgba(110,231,183,0.15); color: #6ee7b7; }
-.badge-aa { background: rgba(96,165,250,0.15); color: #60a5fa; }
-
-.preview-cta {
-  text-align: center;
-  margin-top: 1.5rem;
-}
-
-.preview-cta a {
-  font-size: 0.7rem;
-  color: rgba(245,240,232,0.75);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(245,240,232,0.4);
-  padding-bottom: 0.15rem;
-  transition: color 0.2s, border-color 0.2s;
-}
-
-.preview-cta a:hover { color: var(--cream); border-color: var(--cream); }
-
-/* MANIFESTO STRIPE */
-.manifesto-stripe {
-  background: var(--rust);
-  padding: 5rem 3rem;
-  text-align: center;
-}
-
-.manifesto-stripe blockquote,
-.manifesto-stripe p {
-  font-family: 'Lora', serif;
-  font-size: clamp(1.5rem, 3vw, 2.8rem);
-  font-weight: 400;
-  color: var(--white);
-  line-height: 1.4;
-  max-width: 800px;
-  margin: 0 auto;
-  font-style: italic;
-  border: none;
-  padding: 0;
-}
-
-.manifesto-stripe p strong {
-  font-style: normal;
-  font-weight: 600;
-}
-
-/* FOOTER */
-footer {
-  background: var(--ink);
-  color: var(--cream);
-  padding: 4rem 3rem 2.5rem;
-}
-
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 4rem;
-  margin-bottom: 3rem;
-  padding-bottom: 3rem;
-  border-bottom: 1px solid rgba(245,240,232,0.1);
-}
-
-.footer-brand .logo {
-  font-family: 'Lora', serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--cream);
-  margin-bottom: 0.5rem;
-}
-
-.footer-brand .logo span { color: var(--rust); font-style: italic; }
-
-.footer-brand p {
-  font-size: 0.8rem;
-  color: rgba(245,240,232,0.7);
-  max-width: 280px;
-  line-height: 1.65;
-  margin-top: 0.75rem;
-}
-
-.footer-col h4 {
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(245,240,232,0.6);
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-
-.footer-col a {
-  font-size: 0.8rem;
-  color: rgba(245,240,232,0.75);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-col a:hover { color: var(--cream); }
-
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.footer-bottom p {
-  font-size: 0.7rem;
-  color: rgba(245,240,232,0.6);
-  letter-spacing: 0.04em;
-}
-
-/* ANIMATIONS */
-.fade-up {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem; min-height: auto; }
-  .hero-right { display: none; }
-  .belief { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.5rem; }
-  .pillars-grid { grid-template-columns: 1fr 1fr; }
-  .pillar { border-bottom: 1px solid var(--border); }
-  .tool-callout { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
-  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
-  nav { padding: 1rem 1.5rem; }
-  .nav-links { gap: 1.25rem; }
-  .belief-content blockquote { font-size: 1.4rem; }
-}
-
-@media (max-width: 600px) {
-  .pillars-grid { grid-template-columns: 1fr; }
-  .nav-links .hide-mobile { display: none; }
-}
-
-/* ACCESSIBILITY: Skip link (2.4.1) */
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 0;
-  padding: 0.75rem 1.5rem;
-  background: var(--ink);
-  color: var(--cream);
-  font-family: 'Epilogue', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-decoration: none;
-  z-index: 9999;
-  transition: top 0.2s;
-}
-.skip-link:focus {
-  top: 0;
-}
-
-/* ACCESSIBILITY: Focus visible (2.4.7, 2.4.11) */
-:focus:not(:focus-visible) {
-  outline: none;
-}
-:focus-visible {
-  outline: 3px solid var(--rust);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-footer :focus-visible,
-.marquee-strip :focus-visible {
-  outline-color: var(--cream);
-}
-
-/* ACCESSIBILITY: Reduced motion (2.3.1, 2.2.2) */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f5f0e8; --surface: #fdfaf6; --surface2: #ede6d6;
+    --border: #d4cdc4; --text: #1a1612; --muted: #6d6259;
+    --accent: #b84a24; --accent2: #b84a24;
+    --A: #276320; --AA: #1e40af; --AAA: #6b21a8;
   }
-  .fade-up { opacity: 1; transform: none; }
-  html { scroll-behavior: auto; }
-}
+  html { font-size: 16px; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100vh; line-height: 1.6; }
 
-/* ACCESSIBILITY: Ensure fade-up content visible without JS */
-.fade-up { opacity: 1; transform: none; }
-.js .fade-up { opacity: 0; transform: translateY(24px); }
+  header { border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; background: rgba(245,240,232,0.95); backdrop-filter: blur(8px); z-index: 100; }
+  .logo { display: flex; flex-direction: column; gap: 0.1rem; }
+  .logo-main { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; color: var(--accent); line-height: 1; }
+  .logo-sub { font-size: 0.55rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .header-right { display: flex; align-items: center; gap: 1rem; }
+  .pro-badge { background: var(--accent); color: var(--surface); font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 500; padding: 0.3rem 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border: none; transition: opacity 0.2s; }
+  .pro-badge:hover { opacity: 0.85; }
+  .version-tag { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.05em; }
+  .nav-home { font-size: 0.65rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .nav-home:hover { color: var(--text); }
 
-/* ACCESSIBILITY: Touch targets (2.5.8) */
-.nav-links a {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  padding: 0.5rem 0;
-}
-.btn-primary, .btn-secondary {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-}
+  .hero { padding: 4rem 2rem 3rem; max-width: 900px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+  .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1rem; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero p { color: var(--muted); font-size: 0.85rem; max-width: 480px; margin-bottom: 2rem; }
 
-/* ACCESSIBILITY: Marquee pause button (2.2.2) */
-.marquee-pause {
-  background: transparent;
-  border: 1px solid rgba(245,240,232,0.2);
-  color: var(--cream);
-  font-family: 'Epilogue', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 0.4rem 0.75rem;
-  cursor: pointer;
-  min-height: 44px;
-  min-width: 44px;
-  display: inline-flex;
-  align-items: center;
-  transition: border-color 0.2s, color 0.2s;
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-}
-.marquee-pause:hover { border-color: var(--cream); }
-.marquee-strip { position: relative; }
-.marquee-strip.paused .marquee-inner { animation-play-state: paused; }
+  .search-wrap { display: flex; max-width: 560px; border: 1px solid var(--border); background: var(--surface); transition: border-color 0.2s; }
+  .search-wrap:focus-within { border-color: var(--accent); }
+  .search-wrap input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.85rem; padding: 0.85rem 1rem; }
+  .search-wrap input::placeholder { color: var(--muted); }
+  .search-icon { padding: 0.85rem 1rem; color: var(--muted); font-size: 0.8rem; display: flex; align-items: center; }
 
-/* UPDATE NOTIFICATION BANNER */
-.update-banner {
-  background: var(--ink);
-  color: var(--cream);
-  padding: 0.65rem 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  font-size: 0.8rem;
-  position: relative;
-}
-.update-banner .banner-tag {
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: var(--rust);
-  color: var(--white);
-  padding: 0.15rem 0.5rem;
-  flex-shrink: 0;
-}
-.update-banner p {
-  color: rgba(245,240,232,0.8);
-}
-.update-banner a {
-  color: var(--cream);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  font-weight: 400;
-  white-space: nowrap;
-  transition: color 0.2s;
-}
-.update-banner a:hover { color: var(--rust-light); }
-.update-banner .banner-close {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  color: rgba(245,240,232,0.5);
-  font-size: 1.1rem;
-  cursor: pointer;
-  min-width: 44px;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s;
-  padding: 0;
-}
-.update-banner .banner-close:hover { color: var(--cream); }
-.update-banner:focus-within .banner-close:focus-visible { outline-color: var(--cream); }
+  .stats-bar { max-width: 900px; margin: 0 auto 2rem; padding: 0 2rem; display: flex; gap: 2rem; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 0.2rem; }
+  .stat-num { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; line-height: 1; }
+  .stat-label { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .stat-A .stat-num { color: var(--A); }
+  .stat-AA .stat-num { color: var(--AA); }
+  .stat-total .stat-num { color: var(--muted); }
 
-@media (max-width: 600px) {
-  .update-banner { padding: 0.65rem 3rem 0.65rem 1.5rem; font-size: 0.75rem; }
-}
+  .filters { padding: 0 2rem 1.5rem; max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+  .filter-label { font-size: 0.7rem; color: var(--muted); margin-right: 0.25rem; }
+  .chip { font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 0.35rem 0.8rem; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; letter-spacing: 0.04em; transition: all 0.15s; }
+  .chip:hover { border-color: var(--text); color: var(--text); }
+  .chip.active-A { border-color: var(--A); color: var(--A); background: rgba(39,99,32,0.08); }
+  .chip.active-AA { border-color: var(--AA); color: var(--AA); background: rgba(30,64,175,0.08); }
+  .chip.active-cat { border-color: var(--accent); color: var(--accent); background: rgba(196,82,42,0.08); }
+  .chip.active-all { border-color: var(--text); color: var(--text); }
+  .chip-divider { width: 1px; height: 20px; background: var(--border); margin: 0 0.25rem; }
+
+  .results-meta { padding: 0 2rem 1rem; max-width: 900px; margin: 0 auto; font-size: 0.7rem; color: var(--muted); }
+
+  .grid { max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+
+  .guideline-header { background: var(--bg); padding: 0.6rem 1.5rem; }
+  .guideline-header span { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .card { background: var(--surface); padding: 1.5rem; cursor: pointer; transition: background 0.15s; }
+  .card:hover { background: var(--surface2); }
+  .card.expanded { background: var(--surface2); }
+  .card-header { display: flex; align-items: flex-start; gap: 1rem; }
+  .criterion-num { font-size: 0.7rem; color: var(--muted); white-space: nowrap; padding-top: 0.15rem; min-width: 40px; }
+  .card-main { flex: 1; }
+  .card-title { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; line-height: 1.3; }
+  .new-tag { font-family: 'DM Mono', monospace; font-size: 0.55rem; font-weight: 500; letter-spacing: 0.08em; color: var(--accent); border: 1px solid rgba(196,82,42,0.4); padding: 0.1rem 0.35rem; margin-left: 0.5rem; vertical-align: middle; }
+  .card-summary { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+  .card-badges { display: flex; gap: 0.4rem; align-items: center; flex-shrink: 0; }
+  .level-badge { font-size: 0.6rem; padding: 0.2rem 0.5rem; letter-spacing: 0.06em; font-weight: 500; }
+  .level-A { background: rgba(39,99,32,0.08); color: var(--A); border: 1px solid rgba(39,99,32,0.3); }
+  .level-AA { background: rgba(30,64,175,0.08); color: var(--AA); border: 1px solid rgba(30,64,175,0.3); }
+  .level-AAA { background: rgba(107,33,168,0.08); color: var(--AAA); border: 1px solid rgba(107,33,168,0.3); }
+  .cat-badge { font-size: 0.6rem; color: var(--muted); padding: 0.2rem 0.5rem; border: 1px solid var(--border); letter-spacing: 0.04em; }
+  .expand-icon { font-size: 0.7rem; color: var(--muted); align-self: center; transition: transform 0.2s; flex-shrink: 0; }
+  .card.expanded .expand-icon { transform: rotate(180deg); color: var(--accent); }
+
+  .card-body { display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); margin-left: 52px; }
+  .card.expanded .card-body { display: block; }
+  .body-section { margin-bottom: 1.25rem; }
+  .body-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .plain-english { font-size: 0.85rem; line-height: 1.6; color: var(--text); }
+  .examples { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  @media (max-width: 600px) { .examples { grid-template-columns: 1fr; } }
+  .example-box { padding: 0.85rem; font-size: 0.75rem; line-height: 1.5; border-left: 2px solid; }
+  .example-pass { border-color: var(--A); background: rgba(39,99,32,0.06); color: #2d5225; }
+  .example-fail { border-color: var(--accent); background: rgba(196,82,42,0.06); color: #9e3d1a; }
+  .example-label { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.35rem; opacity: 0.7; }
+  .code-block { background: var(--surface2); border: 1px solid var(--border); padding: 0.85rem 1rem; font-size: 0.72rem; line-height: 1.7; color: var(--text); overflow-x: auto; white-space: pre; }
+  .card-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; flex-wrap: wrap; }
+  .btn-ghost { font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 0.4rem 0.85rem; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; letter-spacing: 0.04em; transition: all 0.15s; text-decoration: none; display: inline-block; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .empty { padding: 4rem 2rem; text-align: center; color: var(--muted); font-size: 0.85rem; background: var(--surface); }
+  .empty span { font-family: 'Fraunces', serif; font-size: 2rem; display: block; margin-bottom: 0.5rem; color: var(--muted); }
+
+  footer { border-top: 1px solid var(--border); padding: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-brand { font-family: 'Fraunces', serif; font-size: 0.9rem; font-weight: 700; color: var(--accent); }
+  .footer-brand span { color: var(--muted); font-weight: 300; font-style: italic; font-size: 0.8rem; }
+  footer p { font-size: 0.7rem; color: var(--muted); }
+  footer a { color: var(--accent); text-decoration: underline; }
+
+  .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--text); color: var(--surface); font-family: 'DM Mono', monospace; font-size: 0.75rem; padding: 0.75rem 1.25rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+
+  @media (max-width: 768px) {
+    header { padding: 0 1rem; }
+    .hero, .filters, .results-meta, .stats-bar, .grid { padding-left: 1rem; padding-right: 1rem; }
+    footer { padding: 1.5rem 1rem; flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ACCESSIBILITY: Screen reader only utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ACCESSIBILITY: Skip link (2.4.1) */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    padding: 0.75rem 1.5rem;
+    background: var(--text);
+    color: var(--surface);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    z-index: 9999;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 0; }
+
+  /* ACCESSIBILITY: Focus visible (2.4.7, 2.4.11) */
+  :focus:not(:focus-visible) { outline: none; }
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  .chip:focus-visible {
+    outline-offset: 0;
+  }
+
+  /* ACCESSIBILITY: Reduced motion (2.3.1) */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* ACCESSIBILITY: Touch targets (2.5.8) */
+  .chip {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn-ghost {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .nav-home, .pro-badge {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* UPDATE NOTIFICATION BANNER */
+  .update-banner {
+    background: var(--text);
+    color: var(--bg);
+    padding: 0.65rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    position: relative;
+  }
+  .update-banner .banner-tag {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: var(--surface);
+    padding: 0.15rem 0.5rem;
+    flex-shrink: 0;
+  }
+  .update-banner p { color: rgba(245,240,232,0.8); }
+  .update-banner a {
+    color: var(--bg);
+    font-weight: 400;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .update-banner a:hover { color: rgba(245,240,232,0.7); }
+  .update-banner .banner-close {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(245,240,232,0.5);
+    font-size: 1.1rem;
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color 0.2s;
+  }
+  .update-banner .banner-close:hover { color: var(--bg); }
+  .update-banner .banner-close:focus-visible { outline-color: var(--bg); }
 </style>
 </head>
 <body>
@@ -891,259 +253,323 @@ footer :focus-visible,
   <button class="banner-close" aria-label="Dismiss notification" onclick="dismissBanner()">&#10005;</button>
 </div>
 
-<nav aria-label="Main navigation">
-  <a href="/" class="nav-logo">MTRCD <span>studio</span></a>
-  <ul class="nav-links">
-    <li class="hide-mobile"><a href="#about">About</a></li>
-    <li class="hide-mobile"><a href="#tools">Tools</a></li>
-    <li><a href="/wcag" class="nav-cta">WCAG Reference →</a></li>
-  </ul>
-</nav>
+<header>
+  <div class="logo">
+    <a href="/" style="text-decoration:none;">
+      <span class="logo-main">MTRCD</span>
+      <span class="logo-sub">Modern Toolkit for Reaching Compliant Design</span>
+    </a>
+  </div>
+  <nav class="header-right" aria-label="Site navigation">
+    <a href="/updates" class="nav-home">What&#8217;s new in v1.1.0</a>
+    <span class="version-tag" aria-label="WCAG version 2.2">WCAG 2.2</span>
+    <button class="pro-badge" onclick="showProModal()">Go Pro &#8212; $9</button>
+  </nav>
+</header>
 
-<!-- HERO -->
 <main id="main-content">
-<section class="hero">
-  <div class="hero-left">
-    <p class="hero-eyebrow">Modern Toolkit for Reaching Compliant Design</p>
-    <h1 class="hero-headline">
-      Technology<br>should meet<br>people <em>where<br>they are.</em>
-    </h1>
-    <p class="hero-body">
-      We help teams design for the full spectrum of human diversity — cognitive, visual, auditory, and motor — creating digital experiences that are clearer, more inclusive, and easier to navigate.
-    </p>
-    <div class="hero-actions">
-      <a href="/wcag" class="btn-primary">Explore the WCAG Tool</a>
-      <a href="#about" class="btn-secondary">Learn our approach</a>
-    </div>
-  </div>
-  <div class="hero-right" aria-hidden="true">
-    <div class="hero-visual">
-      <div class="spectrum-ring"></div>
-      <div class="spectrum-ring"></div>
-      <div class="spectrum-ring"></div>
-      <div class="spectrum-center">
-        <span class="spectrum-center-text">designing for</span>
-        <span class="spectrum-center-big">everyone</span>
-      </div>
-      <div class="spectrum-node node-visual"><div class="spectrum-node"></div></div>
-      <div class="spectrum-label label-visual">Visual</div>
-      <div class="spectrum-node node-motor"><div class="spectrum-node"></div></div>
-      <div class="spectrum-label label-motor">Motor</div>
-      <div class="spectrum-node node-auditory"><div class="spectrum-node"></div></div>
-      <div class="spectrum-label label-auditory">Auditory</div>
-      <div class="spectrum-node node-cognitive"><div class="spectrum-node"></div></div>
-      <div class="spectrum-label label-cognitive">Cognitive</div>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee-strip" role="region" aria-label="Scrolling keywords">
-  <button class="marquee-pause" aria-pressed="false" onclick="toggleMarquee()" aria-label="Pause scrolling text">Pause</button>
-  <div class="marquee-inner" aria-hidden="true">
-    <span class="marquee-item">Inclusive Design</span>
-    <span class="marquee-item">WCAG 2.2</span>
-    <span class="marquee-item">Cognitive Accessibility</span>
-    <span class="marquee-item">Design Systems</span>
-    <span class="marquee-item">ARIA Patterns</span>
-    <span class="marquee-item">Color Contrast</span>
-    <span class="marquee-item">Keyboard Navigation</span>
-    <span class="marquee-item">Screen Readers</span>
-    <span class="marquee-item">Plain Language</span>
-    <span class="marquee-item">Motor Accessibility</span>
-    <span class="marquee-item">Inclusive Design</span>
-    <span class="marquee-item">WCAG 2.2</span>
-    <span class="marquee-item">Cognitive Accessibility</span>
-    <span class="marquee-item">Design Systems</span>
-    <span class="marquee-item">ARIA Patterns</span>
-    <span class="marquee-item">Color Contrast</span>
-    <span class="marquee-item">Keyboard Navigation</span>
-    <span class="marquee-item">Screen Readers</span>
-    <span class="marquee-item">Plain Language</span>
-    <span class="marquee-item">Motor Accessibility</span>
+<div class="hero">
+  <p class="hero-eyebrow">WCAG Quick Reference</p>
+  <h1>WCAG 2.2 <em>without</em><br>the jargon.</h1>
+  <p>All 56 criteria &#8212; Levels A &amp; AA &#8212; in plain English. Real examples. Copy-ready code. Because accessibility is about intention, not memorizing a spec.</p>
+  <div class="search-wrap">
+    <span class="search-icon">&#8981;</span>
+    <input type="text" id="search" placeholder="Search... (e.g. contrast, focus, alt text, 1.4.3)" oninput="render()" aria-label="Search WCAG criteria">
   </div>
 </div>
 
-<!-- BELIEF -->
-<section class="belief" id="about">
-  <div>
-    <p class="belief-label">Our belief</p>
-  </div>
-  <div class="belief-content fade-up">
-    <blockquote>
-      "Accessibility isn't about perfection. It's about intention, removing friction, and making the web work for more people."
-    </blockquote>
-    <p>
-      MTRCD was built on a simple belief: the web works best when it works for everyone. Not just the median user, not just those without disabilities — but for the full, beautiful spectrum of how humans perceive and interact with technology.
-    </p>
-    <p>
-      We build tools, references, and resources that help design and engineering teams move from compliance anxiety to genuine inclusion — because when you design for the edges, you improve the experience for everyone in the middle too.
-    </p>
-  </div>
-</section>
+<div class="stats-bar" id="stats-bar"></div>
 
-<!-- PILLARS -->
-<section class="pillars">
-  <div class="pillars-inner">
-    <div class="pillars-header">
-      <h2 class="pillars-title">The full<br><em style="font-style:italic;color:var(--rust)">spectrum</em></h2>
-      <p class="pillars-subtitle">Designing for human diversity means understanding how people experience the digital world differently.</p>
-    </div>
-    <div class="pillars-grid">
-      <div class="pillar fade-up">
-        <div class="pillar-num">01</div>
-        <div class="pillar-icon pillar-icon-visual">👁</div>
-        <h3 class="pillar-name">Visual</h3>
-        <p class="pillar-desc">Color blindness, low vision, and blindness. Contrast, resizable text, non-text alternatives, and screen reader compatibility.</p>
-      </div>
-      <div class="pillar fade-up" style="transition-delay:0.1s">
-        <div class="pillar-num">02</div>
-        <div class="pillar-icon pillar-icon-auditory">👂</div>
-        <h3 class="pillar-name">Auditory</h3>
-        <p class="pillar-desc">Deafness and hearing impairment. Captions, transcripts, and visual alternatives to audio information.</p>
-      </div>
-      <div class="pillar fade-up" style="transition-delay:0.2s">
-        <div class="pillar-num">03</div>
-        <div class="pillar-icon pillar-icon-motor">✋</div>
-        <h3 class="pillar-name">Motor</h3>
-        <p class="pillar-desc">Tremors, paralysis, and limited dexterity. Keyboard navigation, pointer alternatives, timing adjustments, and target sizing.</p>
-      </div>
-      <div class="pillar fade-up" style="transition-delay:0.3s">
-        <div class="pillar-num">04</div>
-        <div class="pillar-icon pillar-icon-cognitive">🧠</div>
-        <h3 class="pillar-name">Cognitive</h3>
-        <p class="pillar-desc">ADHD, dyslexia, memory, and processing differences. Plain language, consistent navigation, error prevention, and reduced cognitive load.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="filters" role="group" aria-label="Filter criteria">
+  <span class="filter-label">Level:</span>
+  <button class="chip active-all" data-filter="all-level" onclick="setFilter('level','all')" aria-pressed="true">All</button>
+  <button class="chip" data-filter="A" onclick="setFilter('level','A')" aria-pressed="false">A</button>
+  <button class="chip" data-filter="AA" onclick="setFilter('level','AA')" aria-pressed="false">AA</button>
+  <div class="chip-divider" aria-hidden="true"></div>
+  <span class="filter-label">Principle:</span>
+  <button class="chip active-cat" data-filter="all-cat" onclick="setFilter('cat','all')" aria-pressed="true">All</button>
+  <button class="chip" data-filter="Perceivable" onclick="setFilter('cat','Perceivable')" aria-pressed="false">Perceivable</button>
+  <button class="chip" data-filter="Operable" onclick="setFilter('cat','Operable')" aria-pressed="false">Operable</button>
+  <button class="chip" data-filter="Understandable" onclick="setFilter('cat','Understandable')" aria-pressed="false">Understandable</button>
+  <button class="chip" data-filter="Robust" onclick="setFilter('cat','Robust')" aria-pressed="false">Robust</button>
+  <div class="chip-divider" aria-hidden="true"></div>
+  <button class="chip" data-filter="new22" onclick="setFilter('new22','true')" aria-pressed="false">New in 2.2</button>
+</div>
 
-<!-- TOOL CALLOUT -->
-<section class="tool-callout" id="tools">
-  <div class="fade-up">
-    <span class="tool-tag">Free Tool</span>
-    <h2 class="tool-title">WCAG 2.2 <em>without</em><br>the jargon.</h2>
-    <p class="tool-desc">
-      All 56 WCAG 2.2 criteria — Level A and AA — explained in plain English with real-world pass/fail examples and copy-ready code snippets. Search by keyword, filter by level or principle, share a link to any criterion.
-    </p>
-    <ul class="tool-features">
-      <li>Plain-English explanations for every criterion</li>
-      <li>Pass / fail examples designers actually recognize</li>
-      <li>Copy-ready code snippets for every criterion</li>
-      <li>Filter by A, AA, principle, or new in WCAG 2.2</li>
-      <li>Direct links to W3C documentation</li>
-    </ul>
-    <a href="/wcag" class="btn-primary">Open the WCAG Reference →</a>
-  </div>
-  <div class="tool-preview fade-up" style="transition-delay:0.15s">
-    <p class="preview-label">WCAG Quick Reference</p>
-    <div class="preview-row">
-      <span class="preview-id">1.4.3</span>
-      <span class="preview-name">Contrast (Minimum)</span>
-      <span class="preview-badge badge-aa">AA</span>
-    </div>
-    <div class="preview-row">
-      <span class="preview-id">2.4.7</span>
-      <span class="preview-name">Focus Visible</span>
-      <span class="preview-badge badge-aa">AA</span>
-    </div>
-    <div class="preview-row">
-      <span class="preview-id">1.1.1</span>
-      <span class="preview-name">Non-text Content</span>
-      <span class="preview-badge badge-a">A</span>
-    </div>
-    <div class="preview-row">
-      <span class="preview-id">4.1.2</span>
-      <span class="preview-name">Name, Role, Value</span>
-      <span class="preview-badge badge-a">A</span>
-    </div>
-    <div class="preview-row">
-      <span class="preview-id">2.5.8</span>
-      <span class="preview-name">Target Size — New in 2.2</span>
-      <span class="preview-badge badge-aa">AA</span>
-    </div>
-    <div class="preview-cta">
-      <a href="/wcag">View all 56 criteria →</a>
-    </div>
-  </div>
-</section>
-
-<!-- MANIFESTO STRIPE -->
-<section class="manifesto-stripe" aria-label="Our manifesto">
-  <blockquote>
-    <p>
-      "Because accessibility isn't about perfection —<br>
-      it's about <strong>intention</strong>, removing friction, and making<br>
-      the web work for <strong>more people.</strong>"
-    </p>
-  </blockquote>
-</section>
-
+<div class="results-meta" id="results-meta" aria-live="polite"></div>
+<div class="grid" id="grid" role="list"></div>
 </main>
 
-<!-- FOOTER -->
 <footer role="contentinfo">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="logo">MTRCD <span>studio</span></div>
-        <p>Modern Toolkit for Reaching Compliant Design. Building tools and resources for teams who believe accessibility is a practice, not a checklist.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Tools</h4>
-        <ul>
-          <li><a href="/wcag">WCAG Quick Reference</a></li>
-          <li><a href="#">Checklist Generator <span style="font-size:0.6rem;color:var(--rust)">Coming soon</span></a></li>
-          <li><a href="#">Component Auditor <span style="font-size:0.6rem;color:var(--rust)">Coming soon</span></a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="https://www.w3.org/WAI/" target="_blank" rel="noopener">W3C WAI ↗</a></li>
-          <li><a href="/cdn-cgi/l/email-protection#cba3aea7a7a48ba6bfb9a8afe5a8a4a6"><span class="__cf_email__" data-cfemail="137b767f7f7c537e676170773d707c7e">[email&#160;protected]</span></a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 MTRCD. Built with intentionality.</p>
-      <p>Not affiliated with W3C. WCAG is a trademark of W3C.</p>
-    </div>
-  </div>
+  <div class="footer-brand">MTRCD <span>/ wcag reference</span></div>
+  <p>Technology should meet people where they are.</p>
+  <p>Not affiliated with W3C &middot; <a href="https://www.w3.org/WAI/WCAG22/quickref/" target="_blank" rel="noopener">Official WCAG Spec <span aria-hidden="true">&#8599;</span><span class="sr-only"> (opens in new tab)</span></a></p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Add JS class for progressive enhancement (fade-up only animates with JS)
-document.documentElement.classList.add('js');
-document.body.classList.add('js');
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script>
 // Dismiss update banner
 function dismissBanner() {
-  const banner = document.getElementById('update-banner');
+  var banner = document.getElementById('update-banner');
   banner.style.display = 'none';
 }
 
-// Marquee pause/play (WCAG 2.2.2)
-function toggleMarquee() {
-  const strip = document.querySelector('.marquee-strip');
-  const btn = strip.querySelector('.marquee-pause');
-  const paused = strip.classList.toggle('paused');
-  btn.setAttribute('aria-pressed', paused);
-  btn.textContent = paused ? 'Play' : 'Pause';
-}
+const WCAG = [
+  {"id": "1.1.1", "level": "A", "cat": "Perceivable", "guideline": "1.1 Text Alternatives", "title": "Non-text Content", "summary": "All non-text content must have a text alternative that serves the equivalent purpose.", "plain": "Every image, icon, chart, and non-decorative visual element needs a text description. Decorative images get empty alt attributes so screen readers skip them. Complex images like charts need a longer description.", "pass": "A product photo has alt=\"Red Nike Air Max 90 sneaker, lateral view\"", "fail": "An infographic has alt=\"chart\" — conveys nothing meaningful", "code": "<!-- Informative image -->\n<img src=\"logo.png\" alt=\"Acme Corp logo\">\n\n<!-- Decorative image -->\n<img src=\"divider.png\" alt=\"\" role=\"presentation\">\n\n<!-- Complex image (chart) -->\n<img src=\"sales-chart.png\" alt=\"Sales chart\"\n  aria-describedby=\"chart-desc\">\n<p id=\"chart-desc\">Q1: $1.2M, Q2: $1.8M, Q3: $2.1M, Q4: $2.4M</p>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html"},
+  {"id": "1.2.1", "level": "A", "cat": "Perceivable", "guideline": "1.2 Time-based Media", "title": "Audio-only and Video-only (Prerecorded)", "summary": "Prerecorded audio-only and video-only content needs a text alternative.", "plain": "A podcast episode needs a transcript. A silent video needs either a transcript or audio description that conveys the same information as the original media.", "pass": "A product demo video (no audio) includes a step-by-step text description of what's shown", "fail": "A recorded webinar has no transcript — deaf users can't access the content", "code": "<audio controls src=\"podcast.mp3\"></audio>\n<a href=\"transcript.html\">Read full transcript</a>\n\n<!-- Or inline: -->\n<details>\n  <summary>Show transcript</summary>\n  <p>Full transcript text here...</p>\n</details>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html"},
+  {"id": "1.2.2", "level": "A", "cat": "Perceivable", "guideline": "1.2 Time-based Media", "title": "Captions (Prerecorded)", "summary": "Captions must be provided for all prerecorded audio content in synchronized media.", "plain": "Any video that has audio needs accurate, synchronized captions — not just auto-generated ones. Captions must include speaker identification and relevant sound effects like [applause] or [alarm sounds].", "pass": "A training video has accurate captions, including [phone ringing] for background sounds", "fail": "A product demo has YouTube auto-captions only — full of errors and missing speaker IDs", "code": "<video controls>\n  <source src=\"demo.mp4\" type=\"video/mp4\">\n  <track\n    kind=\"captions\"\n    src=\"demo-captions.vtt\"\n    srclang=\"en\"\n    label=\"English\"\n    default>\n</video>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html"},
+  {"id": "1.2.3", "level": "A", "cat": "Perceivable", "guideline": "1.2 Time-based Media", "title": "Audio Description or Media Alternative (Prerecorded)", "summary": "Audio description or full text alternative must be provided for prerecorded video.", "plain": "When a video contains visual information not spoken aloud — on-screen text, actions, facial expressions — blind users miss it. An audio description narrates these visuals. A full text transcript also satisfies this criterion.", "pass": "A cooking tutorial has an audio description: 'Chef now adds a pinch of salt to the pan'", "fail": "A video tutorial shows clicks through a UI with no verbal description of what's on screen", "code": "<video controls>\n  <source src=\"tutorial.mp4\" type=\"video/mp4\">\n  <track kind=\"captions\" src=\"captions.vtt\">\n  <track kind=\"descriptions\"\n    src=\"audio-desc.vtt\"\n    srclang=\"en\"\n    label=\"Audio descriptions\">\n</video>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/audio-description-or-media-alternative-prerecorded.html"},
+  {"id": "1.2.4", "level": "AA", "cat": "Perceivable", "guideline": "1.2 Time-based Media", "title": "Captions (Live)", "summary": "Captions must be provided for all live audio content in synchronized media.", "plain": "Live streams, webinars, and video calls need real-time captions. This typically requires a CART (Communication Access Realtime Translation) service or a platform with live captioning like Google Meet or Teams.", "pass": "A live company all-hands uses a CART provider to produce real-time accurate captions", "fail": "A live product launch stream has no captions — deaf viewers can't follow along", "code": "<!-- Use platforms with live caption support -->\n<!-- Or embed a CART live caption feed -->\n<div role=\"region\" aria-live=\"polite\"\n  aria-label=\"Live captions\">\n  <p id=\"live-caption-output\">\n    <!-- CART feed injects text here -->\n  </p>\n</div>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/captions-live.html"},
+  {"id": "1.2.5", "level": "AA", "cat": "Perceivable", "guideline": "1.2 Time-based Media", "title": "Audio Description (Prerecorded)", "summary": "Audio description must be provided for all prerecorded video content in synchronized media.", "plain": "This requires an actual audio description track, not just a text transcript. All meaningful visual content in videos must be narrated for blind users. This is the AA requirement most commonly missed in enterprise video.", "pass": "A product walkthrough has a separate audio description track narrating all on-screen actions", "fail": "A training video's accessible version is just a PDF transcript — no audio description", "code": "<!-- Offer a version with audio description -->\n<video id=\"main-video\" controls>\n  <source src=\"video-with-audiodesc.mp4\">\n  <track kind=\"captions\" src=\"captions.vtt\">\n</video>\n\n<button onclick=\"switchToAudioDesc()\">\n  Enable audio description\n</button>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/audio-description-prerecorded.html"},
+  {"id": "1.3.1", "level": "A", "cat": "Perceivable", "guideline": "1.3 Adaptable", "title": "Info and Relationships", "summary": "Structure and relationships conveyed visually must also be available programmatically.", "plain": "If something looks like a heading, it should be a heading element. If items are a list, they should be in a list element. Visual hierarchy needs to match semantic hierarchy so screen readers understand the page structure.", "pass": "Navigation is a nav with ul list of links; headings use h1-h6 in logical order", "fail": "Section headers are bold span elements — look like headings visually but aren't announced as headings", "code": "<!-- Correct: semantic structure -->\n<h2>Product Features</h2>\n<ul>\n  <li>Fast performance</li>\n  <li>Accessible by default</li>\n</ul>\n\n<!-- Table with proper semantics -->\n<table>\n  <caption>Q4 Sales by Region</caption>\n  <thead>\n    <tr><th scope=\"col\">Region</th><th scope=\"col\">Sales</th></tr>\n  </thead>\n</table>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html"},
+  {"id": "1.3.2", "level": "A", "cat": "Perceivable", "guideline": "1.3 Adaptable", "title": "Meaningful Sequence", "summary": "When content order matters, the correct reading order must be programmatically determinable.", "plain": "The DOM order must match the visual reading order. If you use CSS to visually reorder elements (like flexbox order or absolute positioning), the HTML order must still make logical sense when read top to bottom.", "pass": "A two-column layout has main article first in the DOM, sidebar second — matches logical reading order", "fail": "CSS grid rearranges content so Tab order jumps from column 2 back to column 1", "code": "/* Keep DOM order matching visual order */\n\n/* Problematic: visual order differs from DOM */\n.sidebar { order: -1; } /* visually first, DOM last */\n\n/* Better: restructure the HTML itself */\n/* DOM order should mirror reading order */\n\n<!-- Main content -->\n<main>...</main>\n<!-- Sidebar after in DOM and visually -->\n<aside>...</aside>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html"},
+  {"id": "1.3.3", "level": "A", "cat": "Perceivable", "guideline": "1.3 Adaptable", "title": "Sensory Characteristics", "summary": "Instructions must not rely solely on sensory characteristics like shape, color, size, or location.", "plain": "'Click the green button' or 'see the form on the right' fails users who are blind or colorblind. Instructions must work without relying on sensory properties alone. Always pair sensory references with text descriptions.", "pass": "'Click the Submit button (green, at the bottom of the form)' — works without color perception", "fail": "'Errors are shown in red' — no way to identify errors without color vision", "code": "<!-- Don't rely on position or color alone -->\n\n<!-- Good: label the element clearly -->\n<button id=\"submit-btn\">\n  Submit application\n</button>\n\n<!-- Reference by name in instructions -->\n<p>When ready, click the\n  <strong>Submit application</strong> button.\n</p>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics.html"},
+  {"id": "1.3.4", "level": "AA", "cat": "Perceivable", "guideline": "1.3 Adaptable", "title": "Orientation", "summary": "Content must not restrict its view to a single display orientation unless essential.", "plain": "Don't lock your site or app to portrait or landscape only. Users with fixed devices — like a tablet mounted on a wheelchair — can't rotate their screen. Let the OS orientation work naturally unless a specific orientation is truly essential.", "pass": "A banking app works correctly in both portrait and landscape orientations", "fail": "A mobile checkout shows 'Please rotate your device' and refuses to work in landscape", "code": "/* Remove orientation locks */\n\n/* Bad: hiding content based on orientation */\n@media (orientation: landscape) {\n  body { display: none; } /* Never do this */\n}\n\n/* Also check HTML meta viewport tag */\n/* Remove any orientation=portrait/landscape */\n/* from your viewport meta if present */", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/orientation.html"},
+  {"id": "1.3.5", "level": "AA", "cat": "Perceivable", "guideline": "1.3 Adaptable", "title": "Identify Input Purpose", "summary": "The purpose of form inputs collecting personal information must be programmatically determinable.", "plain": "Use HTML autocomplete attributes on form fields that collect personal data. This lets browsers and password managers auto-fill fields, especially helpful for users with cognitive disabilities or motor impairments who struggle with typing.", "pass": "Name field has autocomplete=\"given-name\", email has autocomplete=\"email\"", "fail": "A checkout form has no autocomplete attributes — users must type everything manually", "code": "<input type=\"text\"\n  id=\"first-name\"\n  autocomplete=\"given-name\">\n\n<input type=\"email\"\n  id=\"email\"\n  autocomplete=\"email\">\n\n<input type=\"tel\"\n  id=\"phone\"\n  autocomplete=\"tel\">\n\n<input type=\"text\"\n  id=\"city\"\n  autocomplete=\"address-level2\">", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html"},
+  {"id": "1.4.1", "level": "A", "cat": "Perceivable", "guideline": "1.4 Distinguishable", "title": "Use of Color", "summary": "Color must not be the only visual means of conveying information or distinguishing a visual element.", "plain": "Color can be used, but there must always be a secondary indicator — an icon, text label, pattern, or shape — that communicates the same meaning. About 8% of men have color vision deficiency.", "pass": "A required field has a red border AND an asterisk AND the word 'Required'", "fail": "Form validation is communicated only by turning the border red", "code": "<!-- Use icon + text alongside color -->\n<label>\n  Email\n  <span aria-label=\"required\">*</span>\n</label>\n<input type=\"email\" aria-required=\"true\"\n  aria-describedby=\"email-error\">\n<span id=\"email-error\" role=\"alert\">\n  &#9888; Email is required\n</span>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html"},
+  {"id": "1.4.2", "level": "A", "cat": "Perceivable", "guideline": "1.4 Distinguishable", "title": "Audio Control", "summary": "If audio plays automatically for more than 3 seconds, provide a way to pause, stop, or control volume.", "plain": "Auto-playing audio can interfere with screen readers and is disorienting. If you must auto-play audio, provide an immediately accessible control — ideally the first focusable element on the page — to pause or stop it.", "pass": "Background music auto-plays but a 'Pause audio' button is the first focusable element on the page", "fail": "A landing page auto-plays promotional video audio with no mute control visible without scrolling", "code": "<!-- First focusable element on page -->\n<div class=\"audio-banner\">\n  <button id=\"pause-audio\" onclick=\"toggleAudio()\">\n    Pause background audio\n  </button>\n</div>\n\n<script type=\"text/javascript\">\n  const audio = document.getElementById(\"bg-audio\");\n  function toggleAudio() {\n    audio.paused ? audio.play() : audio.pause();\n  }\n<\\/script>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html"},
+  {"id": "1.4.3", "level": "AA", "cat": "Perceivable", "guideline": "1.4 Distinguishable", "title": "Contrast (Minimum)", "summary": "Text must have a contrast ratio of at least 4.5:1 (3:1 for large text).", "plain": "Normal text under 18pt or 14pt bold needs at least 4.5:1 contrast against its background. Large text and UI components only need 3:1. Use a contrast checker before shipping — eyeballing it doesn't work.", "pass": "#1a1a1a text on #ffffff background = 19.1:1 ratio", "fail": "#767676 gray on #ffffff white = 4.48:1 — just under the 4.5:1 AA threshold", "code": "/* AA passing combinations */\n.body-text {\n  color: #1a1a1a; /* on white = 19.1:1 */\n}\n\n.secondary-text {\n  color: #595959; /* on white = 7.0:1 */\n}\n\n/* Large text (18px+) only needs 3:1 */\n.large-heading {\n  color: #767676; /* on white = 4.48:1 OK for large */\n  font-size: 24px;\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"},
+  {"id": "1.4.4", "level": "AA", "cat": "Perceivable", "guideline": "1.4 Distinguishable", "title": "Resize Text", "summary": "Text can be resized up to 200% without loss of content or functionality.", "plain": "When users zoom or increase browser text size to 200%, no text should overflow, truncate, or become inaccessible. Avoid fixed pixel heights on containers that hold text. Use relative units where possible.", "pass": "Cards use min-height and expand gracefully when text is enlarged to 200%", "fail": "A button is 32px tall with overflow:hidden — text clips when users zoom in", "code": "/* Use relative units and min-height */\n.card {\n  min-height: 5rem; /* not height: 80px */\n  padding: 1rem;\n}\n\n.btn {\n  padding: 0.5em 1em; /* scales with font size */\n}\n\n/* Avoid: */\n.bad-container {\n  height: 48px;\n  overflow: hidden; /* clips text at 200% zoom */\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html"},
+  {"id": "1.4.5", "level": "AA", "cat": "Perceivable", "guideline": "1.4 Distinguishable", "title": "Images of Text", "summary": "Use actual text instead of images of text wherever possible.", "plain": "Don't use images of text for headings, labels, or body content. Real text can be resized, reflowed, and read by screen readers. Images of text look blurry when zoomed and can't be customized by users with dyslexia.", "pass": "Section headings are styled with CSS and web fonts, not baked into a JPEG", "fail": "A promotional banner has a heading baked into an image — unzoomable, unreadable by screen readers", "code": "/* Use CSS for visual text effects instead of images */\n.hero-heading {\n  font-family: \"Playfair Display\", serif;\n  font-size: clamp(2rem, 5vw, 4rem);\n  background: linear-gradient(135deg, #667eea, #764ba2);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  /* Real accessible text with visual treatment */\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/images-of-text.html"},
+  {"id": "1.4.10", "level": "AA", "cat": "Perceivable", "guideline": "1.4 Distinguishable", "title": "Reflow", "summary": "Content must not require horizontal scrolling at 320px width (equivalent to 400% zoom on 1280px).", "plain": "At 320px viewport width, all content should reflow into a single readable column with no horizontal scrolling. Data tables are exempt if horizontal scrolling is essential to understand the data — but must be clearly marked.", "pass": "Responsive layout stacks to single column at 320px; tables have scrollable wrappers with ARIA labels", "fail": "A pricing comparison table forces horizontal scroll with no accessible alternative", "code": "/* All non-table content should reflow */\n@media (max-width: 320px) {\n  .layout { flex-direction: column; }\n  .card { width: 100%; }\n}\n\n/* Tables: use scrollable wrapper */\n.table-wrapper {\n  overflow-x: auto;\n  /* Exempt from reflow when essential */\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html"},
+  {"id": "1.4.11", "level": "AA", "cat": "Perceivable", "guideline": "1.4 Distinguishable", "title": "Non-text Contrast", "summary": "UI components and graphical objects must have a 3:1 contrast ratio against adjacent colors.", "plain": "Buttons, form inputs, checkboxes, focus indicators, icons, and chart elements all need at least 3:1 contrast — not just text. A light gray checkbox border on a white background fails. One of the most commonly missed criteria in design systems.", "pass": "Checkbox border #767676 on white = 4.48:1; icon on background = 3.5:1", "fail": "Input border #d0d0d0 on white = 1.6:1 — nearly invisible to low-vision users", "code": "/* Input borders must meet 3:1 contrast */\ninput, select, textarea {\n  border: 1px solid #767676; /* 4.48:1 on white */\n}\n\n/* Icons need 3:1 against their background */\n.icon {\n  color: #595959; /* 7:1 on white */\n}\n\n/* Focus indicators also need 3:1 */\n:focus-visible {\n  outline: 3px solid #005fcc;\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html"},
+  {"id": "1.4.12", "level": "AA", "cat": "Perceivable", "guideline": "1.4 Distinguishable", "title": "Text Spacing", "summary": "No loss of content when users override line height, letter spacing, word spacing, or paragraph spacing.", "plain": "Users with dyslexia often override CSS spacing. Your layouts must not break when line-height is 1.5x, letter-spacing is 0.12em, word-spacing is 0.16em, and paragraph spacing is 2em. Never use fixed heights on text containers.", "pass": "Buttons expand naturally when letter-spacing is overridden; no text clips or overflows", "fail": "A fixed-height tooltip clips text when line-height is increased by the user", "code": "/* Test with this override to find failures: */\n* {\n  line-height: 1.5 !important;\n  letter-spacing: 0.12em !important;\n  word-spacing: 0.16em !important;\n}\np { margin-bottom: 2em !important; }\n\n/* Fix common failures: */\n.tooltip {\n  min-height: 2rem; /* not height: 2rem */\n  overflow: visible;\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html"},
+  {"id": "1.4.13", "level": "AA", "cat": "Perceivable", "guideline": "1.4 Distinguishable", "title": "Content on Hover or Focus", "summary": "Content appearing on hover or focus must be dismissible, hoverable, and persistent.", "plain": "Tooltips and hover-triggered content must: (1) be dismissible with Escape without moving focus, (2) be hoverable — user can move mouse to the tooltip without it disappearing, and (3) persist until dismissed, not disappear on a timer.", "pass": "A tooltip stays visible when user mouses from trigger to tooltip; Escape dismisses it", "fail": "A tooltip disappears when the user moves toward it — impossible to read for slow mouse users", "code": "/* Tooltip must stay open when hovered */\n.trigger:hover + .tooltip,\n.trigger:focus + .tooltip,\n.tooltip:hover {\n  display: block;\n}\n\n// Escape to dismiss\ndocument.addEventListener(\"keydown\", (e) => {\n  if (e.key === \"Escape\") hideAllTooltips();\n});", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html"},
+  {"id": "2.1.1", "level": "A", "cat": "Operable", "guideline": "2.1 Keyboard Accessible", "title": "Keyboard", "summary": "All functionality must be operable via keyboard alone.", "plain": "Everything a mouse user can do — click buttons, open menus, submit forms, interact with components — must be doable with Tab, Enter, Space, and arrow keys. Custom dropdowns, date pickers, and sliders all need keyboard support.", "pass": "Custom date picker: Tab to open, arrow keys to navigate dates, Enter to select, Escape to close", "fail": "A drag-and-drop kanban board has no keyboard alternative for moving cards", "code": "// Custom dropdown keyboard support\ndropdown.addEventListener(\"keydown\", (e) => {\n  switch(e.key) {\n    case \"Enter\":\n    case \" \": toggleDropdown(); break;\n    case \"ArrowDown\": focusNext(); break;\n    case \"ArrowUp\": focusPrev(); break;\n    case \"Escape\": closeDropdown(); break;\n    case \"Home\": focusFirst(); break;\n    case \"End\": focusLast(); break;\n  }\n});", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html"},
+  {"id": "2.1.2", "level": "A", "cat": "Operable", "guideline": "2.1 Keyboard Accessible", "title": "No Keyboard Trap", "summary": "Keyboard focus must not be permanently trapped in any component.", "plain": "If a user Tabs into a modal, date picker, or widget, they must always be able to Tab or Escape out. The exception is modals — focus should be trapped inside while open, but Escape must release it and return focus to the trigger.", "pass": "Modal traps focus while open (correct) but Escape and a close button release focus back to the trigger", "fail": "A video player where Tab cycles through controls but can never exit the player", "code": "function trapFocus(modal) {\n  const focusable = modal.querySelectorAll(\n    \"button, [href], input, select,\n    [tabindex]:not([tabindex=\\\"-1\\\"])\"\n  );\n  const first = focusable[0];\n  const last = focusable[focusable.length - 1];\n\n  modal.addEventListener(\"keydown\", (e) => {\n    if (e.key === \"Escape\") closeModal();\n    if (e.key === \"Tab\") {\n      if (e.shiftKey && document.activeElement === first) {\n        e.preventDefault(); last.focus();\n      } else if (!e.shiftKey && document.activeElement === last) {\n        e.preventDefault(); first.focus();\n      }\n    }\n  });\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html"},
+  {"id": "2.1.4", "level": "A", "cat": "Operable", "guideline": "2.1 Keyboard Accessible", "title": "Character Key Shortcuts", "summary": "Single-character keyboard shortcuts must be remappable, disableable, or only active on focus.", "plain": "If your app uses single-letter keyboard shortcuts, users who rely on speech recognition will accidentally trigger them. Either let users turn off or remap shortcuts, or only activate them when a relevant component has focus.", "pass": "App shortcuts are only active when the user focuses on the relevant panel, not globally", "fail": "A web app uses single-key shortcuts globally — speech recognition users constantly trigger them by accident", "code": "// Only activate shortcuts when component is focused\nconst app = document.getElementById(\"app\");\n\napp.addEventListener(\"keydown\", (e) => {\n  // Only fires when app or child has focus\n  if (!app.contains(document.activeElement)) return;\n\n  if (e.key === \"s\" && !e.ctrlKey && !e.metaKey) {\n    e.preventDefault();\n    save();\n  }\n});", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/character-key-shortcuts.html"},
+  {"id": "2.2.1", "level": "A", "cat": "Operable", "guideline": "2.2 Enough Time", "title": "Timing Adjustable", "summary": "Users must be able to turn off, adjust, or extend any time limits.", "plain": "If your app has session timeouts, auto-advancing carousels, or timed forms, users must be able to turn them off or extend them. The exception is genuinely real-time events like live auctions.", "pass": "A banking session timeout shows a warning dialog with 'Extend session' button 2 minutes before logout", "fail": "A form auto-submits after 5 minutes with no warning — users with disabilities lose their work", "code": "let timeoutWarning, sessionTimeout;\n\nfunction resetTimers() {\n  clearTimeout(timeoutWarning);\n  clearTimeout(sessionTimeout);\n\n  // Warn 2 minutes before logout\n  timeoutWarning = setTimeout(\n    showWarning, 28 * 60 * 1000\n  );\n  sessionTimeout = setTimeout(\n    logout, 30 * 60 * 1000\n  );\n}\n\nfunction showWarning() {\n  dialog.showModal(); // offer to extend\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html"},
+  {"id": "2.2.2", "level": "A", "cat": "Operable", "guideline": "2.2 Enough Time", "title": "Pause, Stop, Hide", "summary": "Moving, blinking, or auto-updating content must be pausable.", "plain": "Carousels, animated banners, live data feeds, and scrolling tickers must have a way to pause or stop. Content that moves and can't be paused is a barrier for people with attention or cognitive disabilities, and can trigger seizures.", "pass": "A news ticker has a pause button; an auto-advancing carousel has pause controls", "fail": "A homepage hero carousel auto-advances with no pause button", "code": "<div class=\"carousel\"\n  role=\"region\"\n  aria-label=\"Featured products\">\n  <button\n    id=\"pause-btn\"\n    aria-pressed=\"false\"\n    onclick=\"togglePause()\">\n    Pause slideshow\n  </button>\n</div>\n\n<script type=\"text/javascript\">\nlet paused = false;\nfunction togglePause() {\n  paused = !paused;\n  document.getElementById(\"pause-btn\")\n    .setAttribute(\"aria-pressed\", paused);\n  paused ? stopCarousel() : startCarousel();\n}\n<\\/script>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html"},
+  {"id": "2.3.1", "level": "A", "cat": "Operable", "guideline": "2.3 Seizures and Physical Reactions", "title": "Three Flashes or Below Threshold", "summary": "Content must not flash more than 3 times per second, or must be below flash thresholds.", "plain": "Rapidly flashing content can trigger photosensitive seizures. Don't create content that flashes more than 3 times per second. Use the Photosensitive Epilepsy Analysis Tool (PEAT) to test video content with fast cuts.", "pass": "A loading animation fades in/out slowly — well under 3 flashes per second", "fail": "A promotional banner has a rapid strobe effect — could trigger seizures in photosensitive users", "code": "/* Keep animations smooth, not strobing */\n@keyframes pulse {\n  0%   { opacity: 1; }\n  50%  { opacity: 0.5; }\n  100% { opacity: 1; }\n}\n\n/* 2s cycle = 0.5 flashes/sec - safe */\n.loading {\n  animation: pulse 2s ease infinite;\n}\n\n/* Never: flash 0.2s infinite */\n/* That = 5 flashes/sec - dangerous */", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html"},
+  {"id": "2.4.1", "level": "A", "cat": "Operable", "guideline": "2.4 Navigable", "title": "Bypass Blocks", "summary": "A mechanism must exist to bypass blocks of content repeated on multiple pages.", "plain": "Keyboard users without a skip link have to Tab through every navigation item on every page load. Add a skip link as the first focusable element that jumps to main content. Proper heading structure and landmark regions also help.", "pass": "Page has a 'Skip to main content' link as first focusable element, visible on focus", "fail": "No skip link exists — keyboard users Tab through 40+ navigation links on every page", "code": "<!-- First element in body -->\n<a href=\"#main-content\" class=\"skip-link\">\n  Skip to main content\n</a>\n\n<style>\n.skip-link {\n  position: absolute;\n  top: -100%;\n  left: 0;\n  padding: 0.5rem 1rem;\n  background: #000;\n  color: #fff;\n  z-index: 9999;\n}\n.skip-link:focus { top: 0; }\n<\\/style>\n\n<main id=\"main-content\" tabindex=\"-1\">...</main>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks.html"},
+  {"id": "2.4.2", "level": "A", "cat": "Operable", "guideline": "2.4 Navigable", "title": "Page Titled", "summary": "Web pages must have titles that describe topic or purpose.", "plain": "Every page needs a descriptive title element. It's the first thing screen readers announce when a page loads, appears in browser tabs and history. For SPAs, update the title dynamically on route changes. Format: Page Name — Site Name.", "pass": "Checkout page: Checkout — Step 2 of 3 — Acme Store", "fail": "<title>Page</title> or <title>Untitled</title> — tells users nothing", "code": "<!-- Static page -->\n<title>WCAG Reference — MTRCD</title>\n\n<!-- React: update on route change -->\nuseEffect(() => {\n  document.title = pageName + \" — MTRCD\";\n}, [pageName]);\n\n<!-- Next.js -->\nimport Head from \"next/head\";\n<Head>\n  <title>{pageName} — MTRCD</title>\n</Head>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/page-titled.html"},
+  {"id": "2.4.3", "level": "A", "cat": "Operable", "guideline": "2.4 Navigable", "title": "Focus Order", "summary": "If a page can be navigated sequentially, focus must move in an order that preserves meaning.", "plain": "When tabbing through a page, focus should move in a logical order matching the visual flow — top to bottom, left to right. Avoid tabindex values above 0. Dialogs should move focus to the first element inside when opened.", "pass": "Tab order: Skip link → Header nav → Main content → Sidebar → Footer", "fail": "Tab order jumps from header to footer then back to main content — disorienting for keyboard users", "code": "<!-- Natural DOM order is best -->\n<!-- Avoid positive tabindex values -->\n\n<!-- When opening modal, move focus inside -->\nfunction openModal(modal) {\n  modal.removeAttribute(\"hidden\");\n  const firstFocusable = modal.querySelector(\n    \"button, [href], input,\n    [tabindex]:not([tabindex=\\\"-1\\\"])\"\n  );\n  firstFocusable?.focus();\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html"},
+  {"id": "2.4.4", "level": "A", "cat": "Operable", "guideline": "2.4 Navigable", "title": "Link Purpose (In Context)", "summary": "The purpose of each link must be determinable from the link text or its context.", "plain": "'Click here' and 'Read more' are meaningless out of context. Screen reader users navigate by listing all links — 'Read more' repeated 10 times is useless. Links should describe their destination in visible text or via aria-label.", "pass": "'Download the 2024 Accessibility Report (PDF, 2.3 MB)' — destination and format are clear", "fail": "'Read more' repeated 8 times on a blog homepage — indistinguishable from each other", "code": "<!-- Bad: vague link text -->\n<a href=\"/report\">Read more</a>\n\n<!-- Good: descriptive text -->\n<a href=\"/report\">\n  Read the 2024 Accessibility Report\n</a>\n\n<!-- Good: visually short, semantically rich -->\n<a href=\"/report\"\n  aria-label=\"Read the 2024 Accessibility Report\">\n  Read more\n</a>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html"},
+  {"id": "2.4.5", "level": "AA", "cat": "Operable", "guideline": "2.4 Navigable", "title": "Multiple Ways", "summary": "More than one way to locate a page within a set of pages must be available.", "plain": "Users must have at least two ways to find content: e.g., site navigation + search, navigation + sitemap, or search + related links. This helps users with cognitive disabilities who may not remember how they navigated to previous content.", "pass": "Site has both main navigation and a search function; a sitemap page also exists", "fail": "A large documentation site only has deep hierarchical nav — no search, no sitemap", "code": "<!-- Ensure at least 2 of these exist -->\n\n<!-- 1. Site navigation -->\n<nav aria-label=\"Main navigation\">...</nav>\n\n<!-- 2. Search -->\n<search aria-label=\"Site search\">\n  <input type=\"search\" name=\"q\">\n  <button type=\"submit\">Search</button>\n</search>\n\n<!-- 3. Sitemap link -->\n<a href=\"/sitemap\">Sitemap</a>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html"},
+  {"id": "2.4.6", "level": "AA", "cat": "Operable", "guideline": "2.4 Navigable", "title": "Headings and Labels", "summary": "Headings and labels must be descriptive.", "plain": "Headings like 'Section 1' or form labels like 'Field 1' are not descriptive. Headings must convey the content they introduce; labels must clearly identify the purpose of their associated input. This helps screen reader users navigating by heading.", "pass": "'Billing Information' clearly tells users what the section contains", "fail": "Heading: 'Details' — could mean anything; Label: 'Name' on a form with both first and last name fields", "code": "<!-- Descriptive headings -->\n<h2>Shipping Address</h2>\n<h2>Payment Information</h2>\n<h2>Order Summary</h2>\n\n<!-- Descriptive labels -->\n<label for=\"fname\">First name</label>\n<input id=\"fname\" type=\"text\">\n\n<label for=\"lname\">Last name</label>\n<input id=\"lname\" type=\"text\">\n\n<label for=\"cc\">Credit card number</label>\n<input id=\"cc\" type=\"text\">", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html"},
+  {"id": "2.4.7", "level": "AA", "cat": "Operable", "guideline": "2.4 Navigable", "title": "Focus Visible", "summary": "Any keyboard-operable UI must have a visible focus indicator.", "plain": "When a user Tabs to an interactive element, there must be a clearly visible focus indicator. Never use outline:none without a replacement. This is the most commonly violated criterion — designers suppress focus rings because they 'look ugly' without providing alternatives.", "pass": "Focused button shows a 3px solid #005fcc outline with 2px offset — clearly visible", "fail": "CSS has :focus { outline: none } with no replacement — keyboard users can't see where they are", "code": ":focus:not(:focus-visible) {\n  outline: none; /* remove for mouse users */\n}\n\n/* Show visible focus for keyboard users */\n:focus-visible {\n  outline: 3px solid #005fcc;\n  outline-offset: 2px;\n  border-radius: 2px;\n}\n\n/* For dark backgrounds */\n.dark :focus-visible {\n  outline-color: #60a5fa;\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html"},
+  {"id": "2.4.11", "level": "AA", "cat": "Operable", "guideline": "2.4 Navigable", "title": "Focus Appearance", "summary": "Focus indicators must enclose the component, have at least 2px perimeter, and meet 3:1 contrast. New in WCAG 2.2.", "plain": "New in WCAG 2.2. The focus indicator must: (1) fully enclose the component, (2) have a perimeter of at least 2px, and (3) have a 3:1 contrast ratio between focused and unfocused states. This adds specific requirements to the vaguer 2.4.7.", "pass": "3px solid #005fcc outline fully enclosing the button, with 2px offset — passes all three requirements", "fail": "A subtle 1px dashed underline only at the bottom — incomplete enclosure, too small", "code": ":focus-visible {\n  /* Encloses component fully */\n  outline: 3px solid #005fcc;\n  /* At least 2px perimeter */\n  outline-offset: 2px;\n  border-radius: 2px;\n  /* 3:1 contrast vs unfocused state */\n  /* #005fcc on white = 7.0:1 - passes */\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html"},
+  {"id": "2.5.1", "level": "A", "cat": "Operable", "guideline": "2.5 Input Modalities", "title": "Pointer Gestures", "summary": "All multi-pointer or path-based gestures must have a single-pointer alternative.", "plain": "Pinch-to-zoom, swipe gestures, and draw-a-path interactions must have alternatives that work with a single tap or click. Users with tremors or limited dexterity can't reliably execute complex gestures.", "pass": "A map supports pinch-to-zoom AND has +/- buttons for zooming with a single click", "fail": "A signature field only accepts drawn input — no alternative for users with motor impairments", "code": "<!-- Always pair gestures with button alternatives -->\n<div class=\"map-controls\">\n  <button aria-label=\"Zoom in\"\n    onclick=\"map.zoomIn()\">\n    +\n  </button>\n  <button aria-label=\"Zoom out\"\n    onclick=\"map.zoomOut()\">\n    &minus;\n  </button>\n</div>\n<!-- Map still supports pinch-to-zoom -->", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html"},
+  {"id": "2.5.2", "level": "A", "cat": "Operable", "guideline": "2.5 Input Modalities", "title": "Pointer Cancellation", "summary": "Single-pointer actions must be cancellable or reversible.", "plain": "For single-click/tap actions, trigger on the up event (click/mouseup), not the down event (mousedown). This lets users who accidentally click drag away before releasing to cancel the action. Or provide an undo mechanism.", "pass": "Destructive actions trigger on click (mouseup) with a confirmation dialog", "fail": "A 'Send email' button triggers on mousedown — users who accidentally press it can't cancel", "code": "// Trigger on up event, not down event\n\n// Bad: fires immediately on press\nbutton.addEventListener(\"mousedown\", sendEmail);\n\n// Good: fires on release (cancellable)\nbutton.addEventListener(\"click\", sendEmail);\n\n// For dangerous actions, add confirmation\nasync function deleteAccount() {\n  const ok = await showConfirmDialog();\n  if (ok) performDelete();\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html"},
+  {"id": "2.5.3", "level": "A", "cat": "Operable", "guideline": "2.5 Input Modalities", "title": "Label in Name", "summary": "The accessible name of a control must contain its visible label text.", "plain": "If a button says 'Buy now', its aria-label must contain 'Buy now'. Speech recognition users activate controls by saying the visible label — if the accessible name doesn't include those words, voice commands fail silently.", "pass": "Visible: 'Buy now' — aria-label: 'Buy now — AirPods Pro' (contains 'Buy now')", "fail": "Visible: 'Submit' — aria-label: 'Send application' — voice command 'click Submit' fails", "code": "<!-- Good: accessible name contains visible text -->\n<button aria-label=\"Buy now — iPhone 15 Pro\">\n  Buy now\n</button>\n\n<!-- Bad: aria-label replaces visible text -->\n<button aria-label=\"Purchase item\">\n  Buy now\n</button>\n<!-- Voice command \"click Buy now\" will fail -->", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html"},
+  {"id": "2.5.4", "level": "A", "cat": "Operable", "guideline": "2.5 Input Modalities", "title": "Motion Actuation", "summary": "Functionality triggered by device motion must have a UI alternative and be disableable.", "plain": "If you use device shake, tilt, or gyroscope to trigger actions, there must be a button alternative. Users with tremors may accidentally trigger motion controls, so they must also be able to turn motion off without performing the motion.", "pass": "An app that allows shaking to undo also has an undo button; shake can be disabled in settings", "fail": "A photo app uses shake-to-delete with no alternative and no way to disable it", "code": "let motionEnabled = true;\n\nwindow.addEventListener(\"devicemotion\", (e) => {\n  if (!motionEnabled) return;\n  if (isShake(e.accelerationIncludingGravity)) undo();\n});\n\n// Always provide a UI alternative\ndocument.getElementById(\"undo-btn\")\n  .addEventListener(\"click\", undo);\n\n// Let users disable motion\nfunction toggleMotion(enabled) {\n  motionEnabled = enabled;\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/motion-actuation.html"},
+  {"id": "2.5.7", "level": "AA", "cat": "Operable", "guideline": "2.5 Input Modalities", "title": "Dragging Movements", "summary": "Functionality using dragging must have a single-pointer alternative. New in WCAG 2.2.", "plain": "New in WCAG 2.2. Any drag-and-drop interaction needs an alternative that works with a single tap or click. This covers users with motor impairments who can't execute precise drag gestures — including kanban boards, file uploaders, and sortable lists.", "pass": "A kanban board allows dragging cards AND provides a 'Move to...' dropdown on each card", "fail": "A file upload zone only accepts drag-and-drop with no click-to-browse button", "code": "<!-- Provide drag alternatives -->\n<div class=\"task-card\" draggable=\"true\">\n  <span>Design system audit</span>\n\n  <!-- Single-pointer alternative -->\n  <select aria-label=\"Move to column\"\n    onchange=\"moveCard(this.value)\">\n    <option>To Do</option>\n    <option>In Progress</option>\n    <option selected>Done</option>\n  </select>\n</div>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html"},
+  {"id": "2.5.8", "level": "AA", "cat": "Operable", "guideline": "2.5 Input Modalities", "title": "Target Size (Minimum)", "summary": "Interactive targets must be at least 24x24 CSS pixels, or have sufficient spacing. New in WCAG 2.2.", "plain": "New in WCAG 2.2. Touch targets must be at least 24x24 CSS pixels — achievable with padding rather than changing visible element size. Aim for 44x44px for the best experience (Apple and Google's recommendation). Inline text links are exempt.", "pass": "Icon-only buttons have 44x44px touch target via padding, even if the icon itself is 20x20", "fail": "Close buttons in modals are 16x16px — nearly impossible to tap accurately on mobile", "code": ".icon-btn {\n  /* Minimum 24x24px target */\n  min-width: 24px;\n  min-height: 24px;\n  padding: 4px;\n}\n\n/* Recommended: 44px for best mobile UX */\n.touch-target {\n  min-width: 44px;\n  min-height: 44px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html"},
+  {"id": "3.1.1", "level": "A", "cat": "Understandable", "guideline": "3.1 Readable", "title": "Language of Page", "summary": "The default human language of each page must be programmatically determinable.", "plain": "Set the lang attribute on the html element. This allows screen readers to use the correct pronunciation and voice, helps translation tools work correctly, and enables appropriate spell-checking.", "pass": "<html lang=\"en\"> for English; <html lang=\"ja\"> for Japanese", "fail": "<html> with no lang attribute — screen readers guess and often mispronounce content", "code": "<!DOCTYPE html>\n<html lang=\"en\">\n\n<!-- Common language codes -->\n<!-- English:             en  -->\n<!-- Spanish:             es  -->\n<!-- French:              fr  -->\n<!-- German:              de  -->\n<!-- Japanese:            ja  -->\n<!-- Chinese (Simplified): zh-Hans -->\n<!-- Arabic:              ar  -->", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-page.html"},
+  {"id": "3.1.2", "level": "AA", "cat": "Understandable", "guideline": "3.1 Readable", "title": "Language of Parts", "summary": "The language of each passage that differs from the page language must be identified.", "plain": "If your English page includes a French quote or Spanish phrase, mark it with lang=\"fr\" or lang=\"es\". Screen readers switch voices accordingly, providing correct pronunciation for the language change.", "pass": "A French quote is wrapped in <span lang=\"fr\"> — screen reader switches to a French voice", "fail": "A multilingual page has no lang attributes on foreign phrases — all read with English pronunciation", "code": "<html lang=\"en\">\n\n<p>The French call it\n  <span lang=\"fr\">joie de vivre</span>.\n</p>\n\n<blockquote lang=\"es\">\n  <p>No hay mal que por bien no venga.</p>\n</blockquote>\n\n<!-- Language on a whole section -->\n<section lang=\"de\">\n  <h2>Uber uns</h2>\n</section>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-parts.html"},
+  {"id": "3.2.1", "level": "A", "cat": "Understandable", "guideline": "3.2 Predictable", "title": "On Focus", "summary": "Receiving focus must not initiate a change of context.", "plain": "Simply tabbing to or clicking on a form element should not automatically submit a form, navigate to a new page, or open a dialog. Context changes must only happen as a result of an explicit user action like pressing a button.", "pass": "A search field receives focus — nothing happens until user types and presses Enter", "fail": "A dropdown menu navigates to a new page as soon as a user focuses any option", "code": "<!-- Bad: navigates on change without submit -->\n<!-- <select onchange=\"location.href=this.value\"> -->\n\n<!-- Good: require explicit submit action -->\n<form>\n  <label for=\"cat\">Category</label>\n  <select id=\"cat\" name=\"cat\">\n    <option value=\"books\">Books</option>\n    <option value=\"music\">Music</option>\n  </select>\n  <button type=\"submit\">Go</button>\n</form>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html"},
+  {"id": "3.2.2", "level": "A", "cat": "Understandable", "guideline": "3.2 Predictable", "title": "On Input", "summary": "Changing a UI component's setting must not automatically cause a change of context.", "plain": "Changing a form field value should not automatically submit the form or navigate away — unless the user has been warned this will happen. Context changes require an explicit action like clicking a button.", "pass": "A search field updates results below as the user types — content updates but page stays (not a context change)", "fail": "Selecting a radio button auto-submits a form and reloads the page with no submit button", "code": "<!-- Bad: auto-submit on change -->\n<!--\n<form>\n  <input type=\"radio\"\n    onchange=\"this.form.submit()\">\n</form>\n-->\n\n<!-- Good: explicit submit button -->\n<form>\n  <fieldset>\n    <legend>Sort by</legend>\n    <input type=\"radio\" name=\"sort\" value=\"price\"> Price\n    <input type=\"radio\" name=\"sort\" value=\"date\"> Date\n  </fieldset>\n  <button type=\"submit\">Apply</button>\n</form>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html"},
+  {"id": "3.2.3", "level": "AA", "cat": "Understandable", "guideline": "3.2 Predictable", "title": "Consistent Navigation", "summary": "Navigation mechanisms repeated across pages must appear in the same relative order.", "plain": "If your header nav shows Home → About → Products → Contact on one page, it must be in that same order on every page. Users with cognitive disabilities build a mental map of your site — inconsistent nav is disorienting.", "pass": "Header navigation appears in the same order on all pages of the site", "fail": "A site rearranges nav links on different pages — some put Contact first, others last", "code": "<!-- Use a shared component for navigation -->\n\n// React example\nconst Navigation = () => (\n  <nav aria-label=\"Main navigation\">\n    <ul>\n      <li><a href=\"/\">Home</a></li>\n      <li><a href=\"/about\">About</a></li>\n      <li><a href=\"/products\">Products</a></li>\n      <li><a href=\"/contact\">Contact</a></li>\n    </ul>\n  </nav>\n);\n\n// Same component on every page\n// Order never changes", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html"},
+  {"id": "3.2.4", "level": "AA", "cat": "Understandable", "guideline": "3.2 Predictable", "title": "Consistent Identification", "summary": "Components with the same functionality must be identified consistently throughout a site.", "plain": "If you have a search icon that opens a search box, it should look and be labeled the same way on every page. Don't call it 'Search' on one page and 'Find' on another. Consistent naming builds predictable mental models.", "pass": "The search icon is always a magnifying glass labeled 'Search' across all pages", "fail": "The same print function is labeled 'Print' on one page, 'Print page' on another, with different icons", "code": "<!-- Use consistent component with fixed label -->\n\nconst SearchButton = () => (\n  <button aria-label=\"Search\">\n    <SearchIcon aria-hidden=\"true\" />\n  </button>\n);\n\n// Same label, same icon, everywhere\n// Don't rename it based on page context\n// unless the function genuinely changes", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html"},
+  {"id": "3.2.6", "level": "AA", "cat": "Understandable", "guideline": "3.2 Predictable", "title": "Consistent Help", "summary": "If help mechanisms exist, they must appear in the same location across pages. New in WCAG 2.2.", "plain": "New in WCAG 2.2. If your site has a help link, chat widget, phone number, or contact form, it must appear in the same relative position on every page. This helps users with cognitive disabilities find support when they're stuck.", "pass": "A 'Help' link always appears in the footer, right side, on every page", "fail": "A live chat button appears in the bottom right on most pages but moves to a header link on checkout", "code": "<!-- Place help mechanisms consistently -->\n<footer>\n  <!-- Same position on every page -->\n  <div class=\"help-section\">\n    <a href=\"/help\">Help Center</a>\n    <a href=\"/contact\">Contact Support</a>\n    <a href=\"tel:+18005551234\">Call us</a>\n  </div>\n</footer>\n\n<!-- Or a floating chat: always same position -->\n<button class=\"chat-widget\"\n  aria-label=\"Open live chat\">\n  Chat\n</button>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html"},
+  {"id": "3.3.1", "level": "A", "cat": "Understandable", "guideline": "3.3 Input Assistance", "title": "Error Identification", "summary": "If an input error is detected, the item in error must be identified and described in text.", "plain": "When a form has an error, tell the user which field failed and what's wrong. Color alone doesn't count. The error message must be text, identify the specific field, and describe what went wrong or how to fix it.", "pass": "'Email address: Please enter a valid email format (e.g., name@domain.com)'", "fail": "The email field border turns red with no text explanation — colorblind users see no error at all", "code": "<div class=\"form-group\">\n  <label for=\"email\">Email address</label>\n  <input\n    id=\"email\"\n    type=\"email\"\n    aria-invalid=\"true\"\n    aria-describedby=\"email-error\">\n  <span\n    id=\"email-error\"\n    role=\"alert\">\n    Please enter a valid email (e.g., name@example.com)\n  </span>\n</div>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html"},
+  {"id": "3.3.2", "level": "A", "cat": "Understandable", "guideline": "3.3 Input Assistance", "title": "Labels or Instructions", "summary": "Labels or instructions must be provided when content requires user input.", "plain": "Forms need visible, persistent labels — not just placeholder text, which disappears on focus. Instructions for format requirements should appear before the input, not only after submission failure. Placeholders alone are never sufficient.", "pass": "Date field labeled 'Departure date' with visible hint 'Format: MM/DD/YYYY' above the input", "fail": "Placeholder text is the only label — disappears when users start typing", "code": "<div class=\"form-group\">\n  <label for=\"dob\">Date of birth</label>\n  <span id=\"dob-hint\" class=\"hint\">\n    Format: MM/DD/YYYY\n  </span>\n  <input\n    id=\"dob\"\n    type=\"text\"\n    aria-describedby=\"dob-hint\"\n    placeholder=\"MM/DD/YYYY\"\n    autocomplete=\"bday\">\n</div>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html"},
+  {"id": "3.3.3", "level": "AA", "cat": "Understandable", "guideline": "3.3 Input Assistance", "title": "Error Suggestion", "summary": "If an input error is detected and suggestions are known, the suggestion must be provided to the user.", "plain": "Don't just say 'Invalid input' — tell users how to fix it. If you know the valid format, show an example. If they pick an unavailable date, suggest the nearest available one. Specific, actionable error messages dramatically reduce frustration.", "pass": "'Password must be 8+ characters and include a number and special symbol'", "fail": "'Invalid input' — tells users nothing about what's wrong or how to fix it", "code": "function validatePassword(value) {\n  const errors = [];\n  if (value.length < 8)\n    errors.push(\"at least 8 characters\");\n  if (!/[0-9]/.test(value))\n    errors.push(\"one number\");\n  if (!/[^a-zA-Z0-9]/.test(value))\n    errors.push(\"one special character\");\n\n  return errors.length\n    ? \"Password needs: \" + errors.join(\", \")\n    : null;\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html"},
+  {"id": "3.3.4", "level": "AA", "cat": "Understandable", "guideline": "3.3 Input Assistance", "title": "Error Prevention (Legal, Financial, Data)", "summary": "For legal commitments or financial transactions, submissions must be reversible, checked, or confirmable.", "plain": "Before a user completes an important transaction — making a purchase, deleting an account, submitting a legal form — give them a chance to review and confirm. Provide an undo mechanism or a confirmation step that summarizes what's about to happen.", "pass": "E-commerce checkout shows a full order summary page before final payment submission", "fail": "A one-click buy button immediately charges the card with no confirmation or review step", "code": "async function deleteAccount() {\n  const confirmed = await showConfirmDialog({\n    title: \"Delete your account?\",\n    body: \"This cannot be undone. All data will be permanently deleted.\",\n    confirmLabel: \"Yes, delete my account\",\n    cancelLabel: \"Cancel\"\n  });\n\n  if (confirmed) {\n    await performDelete();\n    // Offer grace period/undo if possible\n  }\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html"},
+  {"id": "3.3.7", "level": "A", "cat": "Understandable", "guideline": "3.3 Input Assistance", "title": "Redundant Entry", "summary": "Information previously entered by the user must be auto-populated or available for selection. New in WCAG 2.2.", "plain": "New in WCAG 2.2. Don't make users re-enter information they've already provided in the same session. If they entered their email on step 1, auto-populate it on step 3. This reduces effort for users with cognitive disabilities and everyone else.", "pass": "Billing address is pre-filled with shipping address from the previous step; a checkbox copies it automatically", "fail": "A multi-step checkout asks for email on both step 1 and step 3 with no auto-population", "code": "// Store and reuse form data across steps\nconst formData = {};\n\nfunction saveStep(step, data) {\n  formData[step] = data;\n}\n\nfunction prefillForm(fields) {\n  Object.values(formData).forEach(data => {\n    Object.entries(data).forEach(([key, val]) => {\n      const field = document.getElementById(key);\n      if (field && !field.value) field.value = val;\n    });\n  });\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html"},
+  {"id": "3.3.8", "level": "AA", "cat": "Understandable", "guideline": "3.3 Input Assistance", "title": "Accessible Authentication (Minimum)", "summary": "Authentication must not require cognitive function tests unless alternatives are provided. New in WCAG 2.2.", "plain": "New in WCAG 2.2. CAPTCHAs that require solving puzzles or identifying objects are a barrier for users with cognitive disabilities. Authentication must offer an alternative — copy-paste support for passwords, passkeys, email magic links, or audio CAPTCHAs.", "pass": "Login supports password manager paste plus a 'Sign in with email link' alternative", "fail": "Login requires solving a visual CAPTCHA with no audio alternative and blocks password paste", "code": "<!-- Allow password manager paste -->\n<!-- Never block paste: no oncopy/onpaste blockers -->\n\n<input\n  type=\"password\"\n  id=\"password\"\n  autocomplete=\"current-password\">\n  <!-- Allows paste -->\n  <!-- Allows password managers -->\n\n<!-- Offer alternative auth -->\n<button type=\"button\"\n  onclick=\"sendMagicLink()\">\n  Email me a sign-in link\n</button>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/accessible-authentication-minimum.html"},
+  {"id": "4.1.1", "level": "A", "cat": "Robust", "guideline": "4.1 Compatible", "title": "Parsing", "summary": "HTML must have complete start/end tags, no duplicate IDs, and properly nested elements.", "plain": "Write valid HTML. Malformed HTML can cause screen readers to misinterpret structure. Run pages through the W3C Validator. Common issues: duplicate IDs (must be unique across the page), unclosed tags, and improper nesting like a div inside a p element.", "pass": "HTML validates with no errors; all IDs are unique; elements are properly nested and closed", "fail": "Page has duplicate id='main' on two elements — screen readers get confused about which is which", "code": "<!-- Common parsing issues to fix -->\n\n<!-- Bad: duplicate IDs -->\n<div id=\"header\">...</div>\n<div id=\"header\">...</div> <!-- must be unique -->\n\n<!-- Bad: invalid nesting -->\n<p><div>Content</div></p> <!-- block in inline -->\n\n<!-- Good: valid, unique, properly nested -->\n<header id=\"site-header\">...</header>\n<main id=\"main-content\">...</main>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/parsing.html"},
+  {"id": "4.1.2", "level": "A", "cat": "Robust", "guideline": "4.1 Compatible", "title": "Name, Role, Value", "summary": "All UI components must have an accessible name, role, and their states must be programmatically determinable.", "plain": "Custom components — dropdowns, tabs, toggles, sliders, modals — must expose their name (what it is), role (what type of component), and state (is it expanded? checked? selected?) to assistive technology via ARIA or native HTML.", "pass": "Custom toggle: role='switch' aria-checked='true' aria-label='Dark mode'", "fail": "A div styled as a checkbox with no role, no name, no state — completely invisible to screen readers", "code": "<!-- Custom toggle switch -->\n<button\n  role=\"switch\"\n  aria-checked=\"false\"\n  aria-label=\"Enable dark mode\"\n  onclick=\"toggleDark(this)\">\n  <span class=\"thumb\"></span>\n</button>\n\n<!-- Custom listbox -->\n<ul role=\"listbox\"\n  aria-label=\"Select country\">\n  <li role=\"option\" aria-selected=\"true\">\n    United States\n  </li>\n</ul>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html"},
+  {"id": "4.1.3", "level": "AA", "cat": "Robust", "guideline": "4.1 Compatible", "title": "Status Messages", "summary": "Status messages must be programmatically determinable without receiving focus.", "plain": "When something happens after a user action — a form submits, an item is added to cart, a search returns results — that status message must be announced to screen reader users without moving focus. Use aria-live regions or role='status'.", "pass": "After adding to cart, a live region announces 'Item added. Cart total: 3 items' without moving focus", "fail": "A toast notification appears visually but is a plain div — screen readers never announce it", "code": "<!-- Status/success messages -->\n<div role=\"status\"\n  aria-live=\"polite\"\n  aria-atomic=\"true\">\n  <!-- Inject success message dynamically -->\n</div>\n\n<!-- Error messages -->\n<div role=\"alert\"\n  aria-live=\"assertive\">\n  <!-- Inject errors here -->\n</div>\n\nfunction showStatus(message) {\n  document.querySelector('[role=\"status\"]')\n    .textContent = message;\n}", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html"},
+];
 
-// Intersection Observer for fade-up animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
+const NEW_IN_22 = new Set(['2.4.11','2.5.7','2.5.8','3.2.6','3.3.7','3.3.8']);
+let filters = { level: 'all', cat: 'all', new22: 'false' };
+let expanded = null;
+
+function setFilter(type, value) {
+  filters[type] = value;
+  document.querySelectorAll('[data-filter]').forEach(btn => {
+    const f = btn.dataset.filter;
+    btn.setAttribute('aria-pressed', 'false');
+    btn.className = 'chip';
+    if (type === 'level' && ['all-level','A','AA','AAA'].includes(f)) {
+      if ((value === 'all' && f === 'all-level') || f === value) {
+        btn.setAttribute('aria-pressed', 'true');
+        btn.className = value === 'all' ? 'chip active-all' : 'chip active-' + value;
+      }
+    } else if (type === 'cat' && !['A','AA','AAA','all-level','new22'].includes(f)) {
+      if ((value === 'all' && f === 'all-cat') || f === value) {
+        btn.setAttribute('aria-pressed', 'true');
+        btn.className = 'chip active-cat';
+      }
+    } else if (type === 'new22' && f === 'new22') {
+      if (value === 'true') {
+        btn.setAttribute('aria-pressed', 'true');
+        btn.className = 'chip active-cat';
+      }
     }
   });
-}, { threshold: 0.15 });
+  // Re-apply unchanged filter states
+  document.querySelectorAll('[data-filter]').forEach(btn => {
+    const f = btn.dataset.filter;
+    if (type !== 'level' && ['all-level','A','AA','AAA'].includes(f)) {
+      const cur = filters.level;
+      if ((cur === 'all' && f === 'all-level') || f === cur) {
+        btn.setAttribute('aria-pressed', 'true');
+        btn.className = cur === 'all' ? 'chip active-all' : 'chip active-' + cur;
+      }
+    }
+    if (type !== 'cat' && !['A','AA','AAA','all-level','new22'].includes(f)) {
+      const cur = filters.cat;
+      if ((cur === 'all' && f === 'all-cat') || f === cur) {
+        btn.setAttribute('aria-pressed', 'true');
+        btn.className = 'chip active-cat';
+      }
+    }
+    if (type !== 'new22' && f === 'new22' && filters.new22 === 'true') {
+      btn.setAttribute('aria-pressed', 'true');
+      btn.className = 'chip active-cat';
+    }
+  });
+  render();
+}
 
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+function esc(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const grid = document.getElementById('grid');
+
+  const filtered = WCAG.filter(w => {
+    const matchLevel = filters.level === 'all' || w.level === filters.level;
+    const matchCat   = filters.cat   === 'all' || w.cat   === filters.cat;
+    const matchNew   = filters.new22 !== 'true' || NEW_IN_22.has(w.id);
+    const matchQ = !q ||
+      w.id.includes(q) ||
+      w.title.toLowerCase().includes(q) ||
+      w.summary.toLowerCase().includes(q) ||
+      w.plain.toLowerCase().includes(q) ||
+      w.cat.toLowerCase().includes(q) ||
+      (w.guideline && w.guideline.toLowerCase().includes(q));
+    return matchLevel && matchCat && matchNew && matchQ;
+  });
+
+  const aCount  = filtered.filter(w => w.level === 'A').length;
+  const aaCount = filtered.filter(w => w.level === 'AA').length;
+
+  document.getElementById('stats-bar').innerHTML =
+    '<div class="stat stat-A"><span class="stat-num">' + aCount + '</span><span class="stat-label">Level A</span></div>' +
+    '<div class="stat stat-AA"><span class="stat-num">' + aaCount + '</span><span class="stat-label">Level AA</span></div>' +
+    '<div class="stat stat-total"><span class="stat-num">' + filtered.length + '</span><span class="stat-label">Showing</span></div>';
+
+  document.getElementById('results-meta').textContent =
+    filtered.length + ' criteria' + (q ? ' matching "' + q + '"' : '');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty" role="listitem"><span>&#8709;</span>No criteria match. Try different keywords or reset your filters.</div>';
+    return;
+  }
+
+  // Group by guideline
+  const byGuideline = {};
+  filtered.forEach(w => {
+    const g = w.guideline || 'Other';
+    if (!byGuideline[g]) byGuideline[g] = [];
+    byGuideline[g].push(w);
+  });
+
+  let html = '';
+  Object.entries(byGuideline).forEach(([guideline, items]) => {
+    html += '<div class="guideline-header" role="listitem"><span>' + esc(guideline) + '</span></div>';
+    items.forEach(w => {
+      const isNew = NEW_IN_22.has(w.id);
+      const isExp = expanded === w.id;
+      html +=
+        '<div class="card' + (isExp ? ' expanded' : '') + '" role="listitem"' +
+        ' tabindex="0"' +
+        ' data-id="' + esc(w.id) + '" onclick="toggle(this.dataset.id)"' +
+        ' onkeydown="cardKey(event,this.dataset.id)"' +
+        ' aria-expanded="' + isExp + '">' +
+          '<div class="card-header">' +
+            '<span class="criterion-num">' + esc(w.id) + '</span>' +
+            '<div class="card-main">' +
+              '<div class="card-title">' + esc(w.title) +
+                (isNew ? '<span class="new-tag">New 2.2</span>' : '') +
+              '</div>' +
+              '<div class="card-summary">' + esc(w.summary) + '</div>' +
+            '</div>' +
+            '<div class="card-badges">' +
+              '<span class="cat-badge">' + esc(w.cat.slice(0,3).toUpperCase()) + '</span>' +
+              '<span class="level-badge level-' + w.level + '">' + w.level + '</span>' +
+            '</div>' +
+            '<span class="expand-icon" aria-hidden="true">&#9662;</span>' +
+          '</div>' +
+          '<div class="card-body">' +
+            '<div class="body-section">' +
+              '<div class="body-label">Plain English</div>' +
+              '<div class="plain-english">' + esc(w.plain) + '</div>' +
+            '</div>' +
+            '<div class="body-section">' +
+              '<div class="body-label">Pass / Fail</div>' +
+              '<div class="examples">' +
+                '<div class="example-box example-pass"><div class="example-label">&#10003; Pass</div>' + esc(w.pass) + '</div>' +
+                '<div class="example-box example-fail"><div class="example-label">&#10007; Fail</div>' + esc(w.fail) + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="body-section">' +
+              '<div class="body-label">Code Reference</div>' +
+              '<pre class="code-block">' + esc(w.code) + '</pre>' +
+            '</div>' +
+            '<div class="card-actions">' +
+              '<button class="btn-ghost" data-cid="' + esc(w.id) + '" onclick="copyLink(event,this.dataset.cid)" aria-label="Copy link for ' + esc(w.id) + '">Copy link</button>' +
+              '<button class="btn-ghost" data-cid="' + esc(w.id) + '" onclick="copyCode(event,this.dataset.cid)" aria-label="Copy code for ' + esc(w.id) + '">Copy code</button>' +
+              (w.wcagUrl ? '<a class="btn-ghost" href="' + esc(w.wcagUrl) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">W3C docs &#8599;</a>' : '') +
+            '</div>' +
+          '</div>' +
+        '</div>';
+    });
+  });
+
+  grid.innerHTML = html;
+
+  if (expanded) {
+    const el = document.querySelector('.card.expanded');
+    if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+}
+
+function toggle(id) {
+  expanded = expanded === id ? null : id;
+  render();
+}
+
+function cardKey(e, id) {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(id); }
+}
+
+function copyLink(e, id) {
+  e.stopPropagation();
+  navigator.clipboard.writeText('https://mtrcd.com/wcag/' + id).catch(() => {});
+  showToast('Link copied!');
+}
+
+function copyCode(e, id) {
+  e.stopPropagation();
+  const w = WCAG.find(x => x.id === id);
+  if (w) navigator.clipboard.writeText(w.code).catch(() => {});
+  showToast('Code copied!');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function showProModal() {
+  alert('MTRCD Pro — coming soon!\n\nEverything in free, plus:\n\n  Branded PDF checklists\n  Component audit mode\n  Save & share custom checklists\n  Export to Notion, Figma, Linear\n  No ads\n\n$9 one-time · Join the waitlist at mtrcd.com');
+}
+
+render();
 </script>
 
 <script defer src="/_vercel/insights/script.js"></script>
