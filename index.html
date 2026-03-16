@@ -23,9 +23,8 @@
   .logo-main { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; color: var(--accent); line-height: 1; }
   .logo-sub { font-size: 0.55rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
   .header-right { display: flex; align-items: center; gap: 1rem; }
-  .pro-badge { background: var(--accent); color: var(--surface); font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 500; padding: 0.3rem 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border: none; transition: opacity 0.2s; }
-  .pro-badge:hover { opacity: 0.85; }
   .version-tag { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.05em; }
+  .nav-divider { width: 1px; height: 16px; background: var(--border); display: inline-block; margin: 0 0.25rem; }
   .nav-home { font-size: 0.65rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
   .nav-home:hover { color: var(--text); }
 
@@ -183,7 +182,7 @@
     display: inline-flex;
     align-items: center;
   }
-  .nav-home, .pro-badge {
+  .nav-home {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
@@ -262,8 +261,8 @@
   </div>
   <nav class="header-right" aria-label="Site navigation">
     <a href="/updates" class="nav-home">What&#8217;s new in v1.1.0</a>
-    <span class="version-tag" aria-label="WCAG version 2.2">WCAG 2.2</span>
-    <button class="pro-badge" onclick="showProModal()">Go Pro &#8212; $9</button>
+    <span class="nav-divider" aria-hidden="true"></span>
+    <span class="version-tag" aria-label="Covers WCAG 2.2 criteria">Covers WCAG 2.2</span>
   </nav>
 </header>
 
@@ -563,10 +562,6 @@ function showToast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2200);
-}
-
-function showProModal() {
-  alert('MTRCD Pro — coming soon!\n\nEverything in free, plus:\n\n  Branded PDF checklists\n  Component audit mode\n  Save & share custom checklists\n  Export to Notion, Figma, Linear\n  No ads\n\n$9 one-time · Join the waitlist at mtrcd.com');
 }
 
 render();
