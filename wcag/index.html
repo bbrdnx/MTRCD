@@ -11,7 +11,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --bg: #0e0e0e; --surface: #161616; --surface2: #1e1e1e;
-    --border: #2a2a2a; --text: #f0ede8; --muted: #6b6b6b;
+    --border: #2a2a2a; --text: #f0ede8; --muted: #8a8a8a;
     --accent: #c8f060; --accent2: #ff6b35;
     --A: #6ee7b7; --AA: #60a5fa; --AAA: #c084fc;
   }
@@ -107,7 +107,7 @@
   .footer-brand { font-family: 'Fraunces', serif; font-size: 0.9rem; font-weight: 700; color: var(--accent); }
   .footer-brand span { color: var(--muted); font-weight: 300; font-style: italic; font-size: 0.8rem; }
   footer p { font-size: 0.7rem; color: var(--muted); }
-  footer a { color: var(--muted); text-decoration: underline; }
+  footer a { color: var(--accent); text-decoration: underline; }
 
   .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--accent); color: #0e0e0e; font-family: 'DM Mono', monospace; font-size: 0.75rem; padding: 0.75rem 1.25rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
   .toast.show { opacity: 1; }
@@ -121,22 +121,152 @@
     .hero, .filters, .results-meta, .stats-bar, .grid { padding-left: 1rem; padding-right: 1rem; }
     footer { padding: 1.5rem 1rem; flex-direction: column; align-items: flex-start; }
   }
+
+  /* ACCESSIBILITY: Screen reader only utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ACCESSIBILITY: Skip link (2.4.1) */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: #0e0e0e;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    z-index: 9999;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 0; }
+
+  /* ACCESSIBILITY: Focus visible (2.4.7, 2.4.11) */
+  :focus:not(:focus-visible) { outline: none; }
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  .chip:focus-visible {
+    outline-offset: 0;
+  }
+
+  /* ACCESSIBILITY: Reduced motion (2.3.1) */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* ACCESSIBILITY: Touch targets (2.5.8) */
+  .chip {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn-ghost {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .nav-home, .pro-badge {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* UPDATE NOTIFICATION BANNER */
+  .update-banner {
+    background: var(--accent);
+    color: #0e0e0e;
+    padding: 0.55rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    position: relative;
+  }
+  .update-banner .banner-tag {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: #0e0e0e;
+    color: var(--accent);
+    padding: 0.15rem 0.5rem;
+    flex-shrink: 0;
+  }
+  .update-banner p { color: #1a1a1a; }
+  .update-banner a {
+    color: #0e0e0e;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+  }
+  .update-banner a:hover { color: #333; }
+  .update-banner .banner-close {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(14,14,14,0.5);
+    font-size: 1rem;
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color 0.2s;
+  }
+  .update-banner .banner-close:hover { color: #0e0e0e; }
+  .update-banner .banner-close:focus-visible { outline-color: #0e0e0e; }
 </style>
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="update-banner" role="region" aria-label="Site update notification" id="update-banner">
+  <span class="banner-tag">v1.1.0</span>
+  <p>We've improved accessibility across the site. <a href="/updates">See what's new</a></p>
+  <button class="banner-close" aria-label="Dismiss notification" onclick="dismissBanner()">&#10005;</button>
+</div>
+
 <header>
   <div class="logo">
-    <span class="logo-main">MTRCD</span>
-    <span class="logo-sub">Modern Toolkit for Reaching Compliant Design</span>
+    <a href="/" style="text-decoration:none;">
+      <span class="logo-main">MTRCD</span>
+      <span class="logo-sub">Modern Toolkit for Reaching Compliant Design</span>
+    </a>
   </div>
-  <div class="header-right">
+  <nav class="header-right" aria-label="Site navigation">
     <a href="/" class="nav-home">&#8592; Home</a>
-    <span class="version-tag">WCAG 2.2</span>
+    <span class="version-tag" aria-label="WCAG version 2.2">WCAG 2.2</span>
     <button class="pro-badge" onclick="showProModal()">Go Pro &#8212; $9</button>
-  </div>
+  </nav>
 </header>
 
+<main id="main-content">
 <div class="hero">
   <p class="hero-eyebrow">WCAG Quick Reference</p>
   <h1>WCAG 2.2 <em>without</em><br>the jargon.</h1>
@@ -167,16 +297,23 @@
 
 <div class="results-meta" id="results-meta" aria-live="polite"></div>
 <div class="grid" id="grid" role="list"></div>
+</main>
 
-<footer>
+<footer role="contentinfo">
   <div class="footer-brand">MTRCD <span>/ wcag reference</span></div>
   <p>Technology should meet people where they are.</p>
-  <p>Not affiliated with W3C &middot; <a href="https://www.w3.org/WAI/WCAG22/quickref/" target="_blank" rel="noopener">Official WCAG Spec &#8599;</a></p>
+  <p>Not affiliated with W3C &middot; <a href="https://www.w3.org/WAI/WCAG22/quickref/" target="_blank" rel="noopener">Official WCAG Spec <span aria-hidden="true">&#8599;</span><span class="sr-only"> (opens in new tab)</span></a></p>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
+// Dismiss update banner
+function dismissBanner() {
+  var banner = document.getElementById('update-banner');
+  banner.style.display = 'none';
+}
+
 const WCAG = [
   {"id": "1.1.1", "level": "A", "cat": "Perceivable", "guideline": "1.1 Text Alternatives", "title": "Non-text Content", "summary": "All non-text content must have a text alternative that serves the equivalent purpose.", "plain": "Every image, icon, chart, and non-decorative visual element needs a text description. Decorative images get empty alt attributes so screen readers skip them. Complex images like charts need a longer description.", "pass": "A product photo has alt=\"Red Nike Air Max 90 sneaker, lateral view\"", "fail": "An infographic has alt=\"chart\" — conveys nothing meaningful", "code": "<!-- Informative image -->\n<img src=\"logo.png\" alt=\"Acme Corp logo\">\n\n<!-- Decorative image -->\n<img src=\"divider.png\" alt=\"\" role=\"presentation\">\n\n<!-- Complex image (chart) -->\n<img src=\"sales-chart.png\" alt=\"Sales chart\"\n  aria-describedby=\"chart-desc\">\n<p id=\"chart-desc\">Q1: $1.2M, Q2: $1.8M, Q3: $2.1M, Q4: $2.4M</p>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html"},
   {"id": "1.2.1", "level": "A", "cat": "Perceivable", "guideline": "1.2 Time-based Media", "title": "Audio-only and Video-only (Prerecorded)", "summary": "Prerecorded audio-only and video-only content needs a text alternative.", "plain": "A podcast episode needs a transcript. A silent video needs either a transcript or audio description that conveys the same information as the original media.", "pass": "A product demo video (no audio) includes a step-by-step text description of what's shown", "fail": "A recorded webinar has no transcript — deaf users can't access the content", "code": "<audio controls src=\"podcast.mp3\"></audio>\n<a href=\"transcript.html\">Read full transcript</a>\n\n<!-- Or inline: -->\n<details>\n  <summary>Show transcript</summary>\n  <p>Full transcript text here...</p>\n</details>", "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html"},
@@ -433,5 +570,8 @@ function showProModal() {
 
 render();
 </script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>

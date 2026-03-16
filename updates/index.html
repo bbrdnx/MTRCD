@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MTRCD v1.1.0 release notes — accessibility improvements across the entire site, applying the same WCAG 2.2 standards we document.">
+<title>What's New in v1.1.0 — MTRCD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Epilogue:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #f5f0e8;
+  --cream2: #ede6d6;
+  --ink: #1a1612;
+  --ink2: #3d3530;
+  --rust: #c4522a;
+  --rust-light: #f0d4c8;
+  --sage: #4a6741;
+  --sage-light: #d4e0d2;
+  --muted: #6d6259;
+  --border: #d4cdc4;
+  --white: #fdfaf6;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 0.75rem 1.5rem;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Epilogue', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+/* Focus visible */
+:focus:not(:focus-visible) { outline: none; }
+:focus-visible {
+  outline: 3px solid var(--rust);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+footer :focus-visible { outline-color: var(--cream); }
+
+/* NAV */
+nav {
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(245,240,232,0.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+
+.nav-logo {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.nav-logo span { color: var(--rust); font-style: italic; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-links a:hover { color: var(--ink); }
+
+.nav-cta {
+  background: var(--ink) !important;
+  color: var(--cream) !important;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.06em !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--rust) !important; color: var(--white) !important; }
+
+/* CONTENT */
+.page-header {
+  padding: 5rem 3rem 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-header .eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rust);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.page-header .eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--rust);
+}
+
+.page-header h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.page-header h1 em { font-style: italic; color: var(--rust); }
+
+.page-header .subtitle {
+  font-size: 1rem;
+  color: var(--ink2);
+  max-width: 540px;
+  line-height: 1.75;
+}
+
+.release-date {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.75rem;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 3rem 6rem;
+}
+
+.update-section {
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border);
+}
+.update-section:first-of-type {
+  border-top: none;
+}
+
+.update-section h2 {
+  font-family: 'Lora', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.update-section h2 .criteria-ref {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--rust);
+  vertical-align: middle;
+  margin-left: 0.5rem;
+}
+
+.update-section p {
+  font-size: 0.95rem;
+  color: var(--ink2);
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+  max-width: 620px;
+}
+
+.update-section p:last-child { margin-bottom: 0; }
+
+.tag {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  margin-bottom: 0.75rem;
+  border-radius: 1px;
+}
+.tag-added { background: var(--sage-light); color: var(--sage); }
+.tag-improved { background: var(--rust-light); color: var(--rust); }
+.tag-fixed { background: #e8e4f4; color: #5a4f8a; }
+
+/* Back link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  margin-top: 3rem;
+  padding-bottom: 0.15rem;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s, border-color 0.2s;
+  min-height: 44px;
+}
+.back-link:hover { color: var(--ink); border-color: var(--ink); }
+
+/* FOOTER */
+footer {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 2.5rem 3rem;
+}
+.footer-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-brand {
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.footer-brand span { color: var(--rust); font-style: italic; }
+footer p {
+  font-size: 0.75rem;
+  color: rgba(245,240,232,0.6);
+}
+footer a {
+  color: rgba(245,240,232,0.75);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+footer a:hover { color: var(--cream); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+@media (max-width: 600px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links .hide-mobile { display: none; }
+  .page-header, .content { padding-left: 1.5rem; padding-right: 1.5rem; }
+  footer { padding: 2rem 1.5rem; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav aria-label="Main navigation">
+  <a href="/" class="nav-logo">MTRCD <span>studio</span></a>
+  <ul class="nav-links">
+    <li class="hide-mobile"><a href="/">Home</a></li>
+    <li><a href="/wcag" class="nav-cta">WCAG Reference</a></li>
+  </ul>
+</nav>
+
+<main id="main-content">
+  <div class="page-header">
+    <p class="eyebrow">Release Notes</p>
+    <h1>What's new in <em>v1.1.0</em></h1>
+    <p class="subtitle">We applied the same WCAG 2.2 standards we document to our own site. Here's everything that changed.</p>
+    <p class="release-date">March 16, 2026</p>
+  </div>
+
+  <div class="content">
+
+    <div class="update-section">
+      <span class="tag tag-added">Added</span>
+      <h2>Skip navigation links <span class="criteria-ref">2.4.1</span></h2>
+      <p>Both the landing page and the WCAG reference now include a "Skip to main content" link as the first focusable element. It becomes visible on keyboard focus, letting keyboard users bypass the navigation and jump straight to the page content.</p>
+    </div>
+
+    <div class="update-section">
+      <span class="tag tag-added">Added</span>
+      <h2>Landmark regions <span class="criteria-ref">1.3.1</span></h2>
+      <p>Every page now uses proper HTML5 landmarks: <code>&lt;main&gt;</code> wraps the primary content, <code>&lt;nav&gt;</code> elements have descriptive <code>aria-label</code> attributes, and <code>&lt;footer&gt;</code> elements carry their implicit roles. Screen readers can now navigate the site by region.</p>
+    </div>
+
+    <div class="update-section">
+      <span class="tag tag-added">Added</span>
+      <h2>Visible focus indicators <span class="criteria-ref">2.4.7, 2.4.11</span></h2>
+      <p>All interactive elements now show a 3px solid outline when focused via keyboard. Focus styles use <code>:focus-visible</code> so they only appear for keyboard navigation, not mouse clicks. Outlines adapt to the background — rust on light surfaces, cream on dark.</p>
+    </div>
+
+    <div class="update-section">
+      <span class="tag tag-added">Added</span>
+      <h2>Marquee pause control <span class="criteria-ref">2.2.2</span></h2>
+      <p>The scrolling keyword ticker on the landing page now includes a Pause/Play button. Users can stop the animation at any time, which is especially important for people with attention or cognitive disabilities who find continuous motion distracting.</p>
+    </div>
+
+    <div class="update-section">
+      <span class="tag tag-added">Added</span>
+      <h2>Reduced motion support <span class="criteria-ref">2.3.1</span></h2>
+      <p>Both pages now honor the <code>prefers-reduced-motion</code> system setting. When enabled, all animations and transitions are disabled, smooth scrolling switches to instant, and fade-in effects are removed entirely.</p>
+    </div>
+
+    <div class="update-section">
+      <span class="tag tag-added">Added</span>
+      <h2>Progressive enhancement for animations</h2>
+      <p>Fade-up scroll animations now require JavaScript to activate. Without JS, all content is immediately visible — no hidden sections, no blank cards. This prevents content from being permanently invisible if scripts fail to load.</p>
+    </div>
+
+    <div class="update-section">
+      <span class="tag tag-fixed">Fixed</span>
+      <h2>Text contrast ratios <span class="criteria-ref">1.4.3</span></h2>
+      <p>Muted text on the landing page was upgraded from <code>#8a7f76</code> to <code>#6d6259</code>, raising the contrast ratio from ~3.2:1 to ~5.1:1 against the cream background. On the WCAG reference, muted text moved from <code>#6b6b6b</code> to <code>#8a8a8a</code>, raising it from ~3.3:1 to ~5.5:1 against the dark background. Both now comfortably exceed the 4.5:1 AA threshold.</p>
+    </div>
+
+    <div class="update-section">
+      <span class="tag tag-fixed">Fixed</span>
+      <h2>Footer and card contrast <span class="criteria-ref">1.4.3</span></h2>
+      <p>All semi-transparent text in the footer — brand descriptions, column headings, links, and copyright text — was boosted from opacity ranges of 0.25–0.55 to 0.60–0.75. The WCAG tool preview card (criterion IDs, labels, and CTAs) received similar treatment.</p>
+    </div>
+
+    <div class="update-section">
+      <span class="tag tag-improved">Improved</span>
+      <h2>Touch target sizing <span class="criteria-ref">2.5.8</span></h2>
+      <p>Navigation links, filter chips, action buttons, and CTAs now enforce minimum touch target heights of 36–44px. This makes the site significantly easier to use on mobile for people with motor impairments or limited dexterity.</p>
+    </div>
+
+    <div class="update-section">
+      <span class="tag tag-improved">Improved</span>
+      <h2>Semantic HTML and ARIA <span class="criteria-ref">4.1.2</span></h2>
+      <p>The manifesto section was converted from a plain <code>&lt;div&gt;</code> to a <code>&lt;section&gt;</code> with a <code>&lt;blockquote&gt;</code>. The WCAG page header logo is now an actual link. External links include screen-reader-only text indicating they open in a new tab. A <code>.sr-only</code> utility class was added for accessible hidden text.</p>
+    </div>
+
+    <a href="/" class="back-link">&larr; Back to MTRCD</a>
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">MTRCD <span>studio</span></div>
+    <p>&copy; 2025 MTRCD. Built with intentionality.</p>
+  </div>
+</footer>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

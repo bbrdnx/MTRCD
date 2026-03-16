@@ -19,7 +19,7 @@
   --rust-light: #f0d4c8;
   --sage: #4a6741;
   --sage-light: #d4e0d2;
-  --muted: #8a7f76;
+  --muted: #6d6259;
   --border: #d4cdc4;
   --white: #fdfaf6;
 }
@@ -554,7 +554,7 @@ nav {
   font-size: 0.6rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(245,240,232,0.3);
+  color: rgba(245,240,232,0.6);
   margin-bottom: 1.5rem;
 }
 
@@ -569,7 +569,7 @@ nav {
 
 .preview-id {
   font-size: 0.65rem;
-  color: rgba(245,240,232,0.35);
+  color: rgba(245,240,232,0.65);
   font-family: 'Epilogue', sans-serif;
   white-space: nowrap;
 }
@@ -599,11 +599,11 @@ nav {
 
 .preview-cta a {
   font-size: 0.7rem;
-  color: rgba(245,240,232,0.5);
+  color: rgba(245,240,232,0.75);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  border-bottom: 1px solid rgba(245,240,232,0.2);
+  border-bottom: 1px solid rgba(245,240,232,0.4);
   padding-bottom: 0.15rem;
   transition: color 0.2s, border-color 0.2s;
 }
@@ -617,6 +617,7 @@ nav {
   text-align: center;
 }
 
+.manifesto-stripe blockquote,
 .manifesto-stripe p {
   font-family: 'Lora', serif;
   font-size: clamp(1.5rem, 3vw, 2.8rem);
@@ -626,6 +627,8 @@ nav {
   max-width: 800px;
   margin: 0 auto;
   font-style: italic;
+  border: none;
+  padding: 0;
 }
 
 .manifesto-stripe p strong {
@@ -666,7 +669,7 @@ footer {
 
 .footer-brand p {
   font-size: 0.8rem;
-  color: rgba(245,240,232,0.45);
+  color: rgba(245,240,232,0.7);
   max-width: 280px;
   line-height: 1.65;
   margin-top: 0.75rem;
@@ -676,7 +679,7 @@ footer {
   font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(245,240,232,0.3);
+  color: rgba(245,240,232,0.6);
   margin-bottom: 1rem;
   font-weight: 500;
 }
@@ -685,7 +688,7 @@ footer {
 
 .footer-col a {
   font-size: 0.8rem;
-  color: rgba(245,240,232,0.55);
+  color: rgba(245,240,232,0.75);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -701,7 +704,7 @@ footer {
 
 .footer-bottom p {
   font-size: 0.7rem;
-  color: rgba(245,240,232,0.25);
+  color: rgba(245,240,232,0.6);
   letter-spacing: 0.04em;
 }
 
@@ -730,11 +733,165 @@ footer {
   .pillars-grid { grid-template-columns: 1fr; }
   .nav-links .hide-mobile { display: none; }
 }
+
+/* ACCESSIBILITY: Skip link (2.4.1) */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 0.75rem 1.5rem;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Epilogue', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ACCESSIBILITY: Focus visible (2.4.7, 2.4.11) */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+:focus-visible {
+  outline: 3px solid var(--rust);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+footer :focus-visible,
+.marquee-strip :focus-visible {
+  outline-color: var(--cream);
+}
+
+/* ACCESSIBILITY: Reduced motion (2.3.1, 2.2.2) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .fade-up { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ACCESSIBILITY: Ensure fade-up content visible without JS */
+.fade-up { opacity: 1; transform: none; }
+.js .fade-up { opacity: 0; transform: translateY(24px); }
+
+/* ACCESSIBILITY: Touch targets (2.5.8) */
+.nav-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+.btn-primary, .btn-secondary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ACCESSIBILITY: Marquee pause button (2.2.2) */
+.marquee-pause {
+  background: transparent;
+  border: 1px solid rgba(245,240,232,0.2);
+  color: var(--cream);
+  font-family: 'Epilogue', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: border-color 0.2s, color 0.2s;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.marquee-pause:hover { border-color: var(--cream); }
+.marquee-strip { position: relative; }
+.marquee-strip.paused .marquee-inner { animation-play-state: paused; }
+
+/* UPDATE NOTIFICATION BANNER */
+.update-banner {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 0.65rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  position: relative;
+}
+.update-banner .banner-tag {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--rust);
+  color: var(--white);
+  padding: 0.15rem 0.5rem;
+  flex-shrink: 0;
+}
+.update-banner p {
+  color: rgba(245,240,232,0.8);
+}
+.update-banner a {
+  color: var(--cream);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 400;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.update-banner a:hover { color: var(--rust-light); }
+.update-banner .banner-close {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: rgba(245,240,232,0.5);
+  font-size: 1.1rem;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  padding: 0;
+}
+.update-banner .banner-close:hover { color: var(--cream); }
+.update-banner:focus-within .banner-close:focus-visible { outline-color: var(--cream); }
+
+@media (max-width: 600px) {
+  .update-banner { padding: 0.65rem 3rem 0.65rem 1.5rem; font-size: 0.75rem; }
+}
 </style>
 </head>
 <body>
 
-<nav>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="update-banner" role="region" aria-label="Site update notification" id="update-banner">
+  <span class="banner-tag">v1.1.0</span>
+  <p>We've improved accessibility across the site. <a href="/updates">See what's new</a></p>
+  <button class="banner-close" aria-label="Dismiss notification" onclick="dismissBanner()">&#10005;</button>
+</div>
+
+<nav aria-label="Main navigation">
   <a href="/" class="nav-logo">MTRCD <span>studio</span></a>
   <ul class="nav-links">
     <li class="hide-mobile"><a href="#about">About</a></li>
@@ -744,6 +901,7 @@ footer {
 </nav>
 
 <!-- HERO -->
+<main id="main-content">
 <section class="hero">
   <div class="hero-left">
     <p class="hero-eyebrow">Modern Toolkit for Reaching Compliant Design</p>
@@ -780,8 +938,9 @@ footer {
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-strip" aria-hidden="true">
-  <div class="marquee-inner">
+<div class="marquee-strip" role="region" aria-label="Scrolling keywords">
+  <button class="marquee-pause" aria-pressed="false" onclick="toggleMarquee()" aria-label="Pause scrolling text">Pause</button>
+  <div class="marquee-inner" aria-hidden="true">
     <span class="marquee-item">Inclusive Design</span>
     <span class="marquee-item">WCAG 2.2</span>
     <span class="marquee-item">Cognitive Accessibility</span>
@@ -910,16 +1069,20 @@ footer {
 </section>
 
 <!-- MANIFESTO STRIPE -->
-<div class="manifesto-stripe">
-  <p>
-    "Because accessibility isn't about perfection —<br>
-    it's about <strong>intention</strong>, removing friction, and making<br>
-    the web work for <strong>more people.</strong>"
-  </p>
-</div>
+<section class="manifesto-stripe" aria-label="Our manifesto">
+  <blockquote>
+    <p>
+      "Because accessibility isn't about perfection —<br>
+      it's about <strong>intention</strong>, removing friction, and making<br>
+      the web work for <strong>more people.</strong>"
+    </p>
+  </blockquote>
+</section>
+
+</main>
 
 <!-- FOOTER -->
-<footer>
+<footer role="contentinfo">
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
@@ -951,6 +1114,39 @@ footer {
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Add JS class for progressive enhancement (fade-up only animates with JS)
+document.documentElement.classList.add('js');
+document.body.classList.add('js');
+
+// Dismiss update banner
+function dismissBanner() {
+  const banner = document.getElementById('update-banner');
+  banner.style.display = 'none';
+}
+
+// Marquee pause/play (WCAG 2.2.2)
+function toggleMarquee() {
+  const strip = document.querySelector('.marquee-strip');
+  const btn = strip.querySelector('.marquee-pause');
+  const paused = strip.classList.toggle('paused');
+  btn.setAttribute('aria-pressed', paused);
+  btn.textContent = paused ? 'Play' : 'Pause';
+}
+
 // Intersection Observer for fade-up animations
 const observer = new IntersectionObserver((entries) => {
-  entrie
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
