@@ -28,17 +28,15 @@
   .nav-home { font-size: 0.65rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
   .nav-home:hover { color: var(--text); }
 
-  .hero { padding: 4rem 2rem 3rem; max-width: 900px; margin: 0 auto; }
+  .hero { padding: 2.5rem 2rem 2rem; max-width: 900px; margin: 0 auto; }
   .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
-  .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1rem; }
-  .hero h1 em { font-style: italic; color: var(--accent); }
   .hero p { color: var(--muted); font-size: 0.85rem; max-width: 480px; margin-bottom: 2rem; }
 
   .search-wrap { display: flex; max-width: 560px; border: 1px solid var(--border); background: var(--surface); transition: border-color 0.2s; }
   .search-wrap:focus-within { border-color: var(--accent); }
   .search-wrap input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.85rem; padding: 0.85rem 1rem; }
   .search-wrap input::placeholder { color: var(--muted); }
-  .search-icon { padding: 0.85rem 1rem; color: var(--muted); font-size: 0.8rem; display: flex; align-items: center; }
+  .search-icon { padding: 0.85rem 1rem; color: var(--muted); display: flex; align-items: center; line-height: 0; }
 
   .stats-bar { max-width: 900px; margin: 0 auto 2rem; padding: 0 2rem; display: flex; gap: 2rem; flex-wrap: wrap; }
   .stat { display: flex; flex-direction: column; gap: 0.2rem; }
@@ -301,9 +299,8 @@
 <main id="main-content">
 <div class="hero">
   <p class="hero-eyebrow">WCAG Quick Reference</p>
-  <h1>WCAG 2.2 <em>without</em><br>the jargon.</h1>
   <div class="search-wrap">
-    <span class="search-icon">&#8981;</span>
+    <span class="search-icon"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
     <input type="text" id="search" placeholder="Search... (e.g. contrast, focus, alt text, 1.4.3)" oninput="render()" aria-label="Search WCAG criteria">
   </div>
 </div>
