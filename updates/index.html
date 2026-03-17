@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="MTRCD v1.1.0 release notes — accessibility improvements across the entire site, applying the same WCAG 2.2 standards we document.">
-<title>What's New in v1.1.0 — MTRCD</title>
+<meta name="description" content="MTRCD v1.1.0 release notes: accessibility improvements across the entire site, applying the same WCAG 2.2 standards we document.">
+<title>What's New in v1.1.0 | MTRCD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Epilogue:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --cream: #f5f0e8;
-  --cream2: #ede6d6;
+  --cream: #edecea;
+  --cream2: #e4e2de;
   --ink: #1a1612;
   --ink2: #3d3530;
-  --rust: #b84a24;
-  --rust-light: #f0d4c8;
+  --rust: #1a5c40;
+  --rust-light: #d0e8dc;
   --sage: #4a6741;
   --sage-light: #d4e0d2;
   --muted: #6d6259;
-  --border: #d4cdc4;
-  --white: #fdfaf6;
+  --border: #ccc9c4;
+  --white: #f7f6f4;
 }
 
 html { font-size: 16px; scroll-behavior: smooth; }
@@ -69,7 +69,7 @@ nav {
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  background: rgba(245,240,232,0.95);
+  background: rgba(237,236,234,0.95);
   backdrop-filter: blur(8px);
   z-index: 100;
 }
@@ -260,10 +260,10 @@ footer {
 .footer-brand span { color: var(--rust); font-style: italic; }
 footer p {
   font-size: 0.75rem;
-  color: rgba(245,240,232,0.6);
+  color: rgba(237,236,234,0.6);
 }
 footer a {
-  color: rgba(245,240,232,0.75);
+  color: rgba(237,236,234,0.75);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -324,7 +324,7 @@ footer a:hover { color: var(--cream); }
     <div class="update-section">
       <span class="tag tag-added">Added</span>
       <h2>Visible focus indicators <span class="criteria-ref">2.4.7, 2.4.11</span></h2>
-      <p>All interactive elements now show a 3px solid outline when focused via keyboard. Focus styles use <code>:focus-visible</code> so they only appear for keyboard navigation, not mouse clicks. Outlines adapt to the background — rust on light surfaces, cream on dark.</p>
+      <p>All interactive elements now show a 3px solid outline when focused via keyboard. Focus styles use <code>:focus-visible</code> so they only appear for keyboard navigation, not mouse clicks. Outlines adapt to the background: green on light surfaces, cream on dark.</p>
     </div>
 
     <div class="update-section">
@@ -342,7 +342,7 @@ footer a:hover { color: var(--cream); }
     <div class="update-section">
       <span class="tag tag-added">Added</span>
       <h2>Progressive enhancement for animations</h2>
-      <p>Fade-up scroll animations now require JavaScript to activate. Without JS, all content is immediately visible — no hidden sections, no blank cards. This prevents content from being permanently invisible if scripts fail to load.</p>
+      <p>Fade-up scroll animations now require JavaScript to activate. Without JS, all content is immediately visible: no hidden sections, no blank cards. This prevents content from being permanently invisible if scripts fail to load.</p>
     </div>
 
     <div class="update-section">
@@ -354,7 +354,7 @@ footer a:hover { color: var(--cream); }
     <div class="update-section">
       <span class="tag tag-fixed">Fixed</span>
       <h2>Footer and card contrast <span class="criteria-ref">1.4.3</span></h2>
-      <p>All semi-transparent text in the footer — brand descriptions, column headings, links, and copyright text — was boosted from opacity ranges of 0.25–0.55 to 0.60–0.75. The WCAG tool preview card (criterion IDs, labels, and CTAs) received similar treatment.</p>
+      <p>All semi-transparent text in the footer, including brand descriptions, column headings, links, and copyright text, was boosted from opacity ranges of 0.25–0.55 to 0.60–0.75. The WCAG tool preview card (criterion IDs, labels, and CTAs) received similar treatment.</p>
     </div>
 
     <div class="update-section">
