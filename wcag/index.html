@@ -28,18 +28,15 @@
   .nav-home { font-size: 0.65rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
   .nav-home:hover { color: var(--text); }
 
-  .hero { padding: 2.5rem 2rem 2rem; max-width: 900px; margin: 0 auto; }
-  .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
-  .hero p { color: var(--muted); font-size: 0.85rem; max-width: 480px; margin-bottom: 2rem; }
 
-  .search-wrap { display: flex; max-width: 560px; border: 1px solid var(--border); background: var(--surface); transition: border-color 0.2s; }
-  .search-wrap:focus-within { border-color: var(--accent); }
-  .search-wrap input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.85rem; padding: 0.85rem 1rem; }
-  .search-wrap input::placeholder { color: var(--muted); }
-  .search-icon { padding: 0.85rem 1rem; color: var(--muted); display: flex; align-items: center; line-height: 0; }
+  .header-search { display: flex; align-items: center; flex: 1; max-width: 340px; margin: 0 1.5rem; border: 1px solid var(--border); background: var(--surface); height: 36px; transition: border-color 0.2s; }
+  .header-search:focus-within { border-color: var(--accent); }
+  .header-search input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.75rem; padding: 0 0.75rem; height: 100%; }
+  .header-search input::placeholder { color: var(--muted); }
+  .header-search .search-icon { padding: 0 0.6rem; color: var(--muted); display: flex; align-items: center; line-height: 0; flex-shrink: 0; }
 
-  .stats-bar { max-width: 900px; margin: 0 auto 2rem; padding: 0 2rem; display: flex; gap: 2rem; flex-wrap: wrap; }
-  .stat { display: flex; flex-direction: column; gap: 0.2rem; }
+  .stats-bar { max-width: 900px; margin: 0 auto 2rem; padding: 1.5rem 2rem 0; display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+  .stat { display: flex; flex-direction: column; gap: 0.2rem; align-items: center; }
   .stat-num { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; line-height: 1; }
   .stat-label { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
   .stat-A .stat-num { color: var(--A); }
@@ -128,6 +125,7 @@
 
   @media (max-width: 768px) {
     header { padding: 0 1rem; }
+    .header-search { max-width: 180px; margin: 0 0.5rem; }
     .hero, .filters, .results-meta, .stats-bar, .grid { padding-left: 1rem; padding-right: 1rem; }
     footer { padding: 1.5rem 1rem; flex-direction: column; align-items: flex-start; }
   }
@@ -252,6 +250,91 @@
   .update-banner .banner-close:hover { color: var(--bg); }
   .update-banner .banner-close:focus-visible { outline-color: var(--bg); }
 
+
+  /* Help button and overlay */
+  .help-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-family: 'Fraunces', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .help-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .help-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,22,18,0.5);
+    z-index: 300;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .help-overlay.open { display: flex; }
+
+  .help-modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    max-width: 560px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 2rem;
+  }
+  .help-modal h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+  .help-modal h3 {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 1.25rem 0 0.4rem;
+  }
+  .help-modal p {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .help-modal .help-close {
+    float: right;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    cursor: pointer;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.15s;
+  }
+  .help-modal .help-close:hover { border-color: var(--text); color: var(--text); }
+  .help-modal kbd {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.35rem;
+    color: var(--text);
+  }
+
   /* Back to top */
   .back-to-top {
     position: fixed;
@@ -302,21 +385,21 @@
       <span class="logo-sub">Modern Toolkit for Reaching Compliant Design</span>
     </a>
   </div>
+  <div class="header-search">
+    <span class="search-icon"><svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+    <input type="text" id="search" placeholder="Search criteria..." oninput="render()" aria-label="Search WCAG criteria">
+  </div>
   <nav class="header-right" aria-label="Site navigation">
     <a href="/" class="nav-home">&#8592; Home</a>
     <span class="nav-divider" aria-hidden="true"></span>
     <span class="version-tag" aria-label="Covers WCAG 2.2 criteria">Covers WCAG 2.2</span>
+    <span class="nav-divider" aria-hidden="true"></span>
+    <button class="help-btn" onclick="toggleHelp()" aria-label="How to use this tool">?</button>
   </nav>
 </header>
 
 <main id="main-content">
-<div class="hero">
-  <p class="hero-eyebrow">WCAG Quick Reference</p>
-  <div class="search-wrap">
-    <span class="search-icon"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-    <input type="text" id="search" placeholder="Search... (e.g. contrast, focus, alt text, 1.4.3)" oninput="render()" aria-label="Search WCAG criteria">
-  </div>
-</div>
+
 
 <div class="stats-bar" id="stats-bar"></div>
 
@@ -646,7 +729,58 @@ function showToast(msg) {
 }
 
 render();
+
+function toggleHelp() {
+  var overlay = document.getElementById('help-overlay');
+  var isOpen = overlay.classList.toggle('open');
+  if (isOpen) {
+    overlay.querySelector('.help-close').focus();
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var overlay = document.getElementById('help-overlay');
+    if (overlay.classList.contains('open')) { toggleHelp(); return; }
+  }
+  if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+    var tag = document.activeElement.tagName;
+    if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+      e.preventDefault();
+      document.getElementById('search').focus();
+    }
+  }
+});
 </script>
+
+
+<div class="help-overlay" id="help-overlay" onclick="if(event.target===this)toggleHelp()">
+  <div class="help-modal" role="dialog" aria-labelledby="help-title">
+    <button class="help-close" onclick="toggleHelp()">Close</button>
+    <h2 id="help-title">How to use this tool</h2>
+
+    <h3>Search</h3>
+    <p>Type in the header search bar to filter by keyword, criterion number, or topic. Try "contrast", "1.4.3", or "keyboard".</p>
+
+    <h3>Filter by level</h3>
+    <p>Use the <strong>Level</strong> chips to show only Level A or AA criteria. Level A is the legal compliance baseline. AA is the standard most organizations target.</p>
+
+    <h3>Filter by principle</h3>
+    <p>WCAG organizes criteria into four principles: Perceivable, Operable, Understandable, and Robust. Use the <strong>Principle</strong> chips to narrow by category.</p>
+
+    <h3>Filter by component</h3>
+    <p>Working on a specific UI element? Use the <strong>Component</strong> row to see only criteria relevant to Forms, Buttons, Modals, Navigation, and more. Click an active component chip again to deselect it.</p>
+
+    <h3>Expand a criterion</h3>
+    <p>Click any card to expand it. Inside you'll find a plain English explanation, pass/fail examples, a code reference, and for Level A criteria, step-by-step testing guidance with method tags (Automated, Keyboard, Screen reader, Manual).</p>
+
+    <h3>Copy and share</h3>
+    <p>Each expanded card has <strong>Copy link</strong> and <strong>Copy code</strong> buttons, plus a link to the official W3C documentation.</p>
+
+    <h3>Keyboard shortcuts</h3>
+    <p>Press <kbd>/</kbd> to focus the search bar from anywhere on the page. Press <kbd>Esc</kbd> to close this dialog.</p>
+  </div>
+</div>
 
 <button class="back-to-top" id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
